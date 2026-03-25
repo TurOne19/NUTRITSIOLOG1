@@ -3,27 +3,30 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Юлия Петрова — Нутрициолог</title>
+<title>Юлия Петров — Нутрициолог</title>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 
 :root{
-  --c1:#F7F0E8;
-  --c2:#EDE3D5;
-  --c3:#D9C9B0;
-  --c4:#B8956A;
-  --c5:#8C6D4F;
-  --c6:#5C3D2E;
-  --c7:#2C1810;
-  --white:#FDFAF6;
-  --text:#3A2B1E;
-  --muted:#7A6654;
-  --accent:#C4955A;
+  /* Бежевые (из пиджака Юлии) */
+  --c1:#F6F3EE;
+  --c2:#EDE8DF;
+  --c3:#DDD5C4;
+  /* Зелёные (из логотипа) */
+  --c4:#A8C9A5;
+  --c5:#6FA86A;
+  --c6:#4A7C4E;
+  --c7:#2D5432;
+  /* Утилиты */
+  --white:#FDFCF9;
+  --text:#2E3528;
+  --muted:#6B7566;
+  --accent:#6FA86A;
   --ff-serif:'Cormorant Garamond',Georgia,serif;
   --ff-sans:'DM Sans',sans-serif;
   --r:16px;
-  --shadow:0 12px 48px rgba(92,61,46,.13);
+  --shadow:0 12px 48px rgba(74,124,78,.13);
 }
 
 html{scroll-behavior:smooth}
@@ -32,39 +35,72 @@ body{font-family:var(--ff-sans);background:var(--c1);color:var(--text);line-heig
 /* ─── INTRO OVERLAY ─── */
 #intro-overlay{
   position:fixed;inset:0;z-index:9999;
-  background:var(--c7);
+  background:var(--white);
   display:flex;flex-direction:column;align-items:center;justify-content:center;
-  gap:20px;
-  transition:opacity 1s ease, visibility 1s ease;
+  gap:0;
+  transition:opacity 1.1s ease, visibility 1.1s ease;
 }
 #intro-overlay.hidden{opacity:0;visibility:hidden;pointer-events:none}
-.intro-logo{
-  font-family:var(--ff-serif);font-size:clamp(32px,6vw,62px);
-  color:var(--c3);font-style:italic;font-weight:300;
-  letter-spacing:.06em;text-align:center;
-  animation:fadeUp .9s ease both;
+
+.intro-scene{
+  display:flex;flex-direction:column;align-items:center;
+  position:relative;
 }
+/* Логотип-картинка крутится и появляется */
+.intro-logo-img{
+  width:110px;height:110px;object-fit:contain;
+  animation:introLogoSpin .9s cubic-bezier(.34,1.56,.64,1) both;
+}
+@keyframes introLogoSpin{
+  from{opacity:0;transform:scale(.3) rotate(-30deg)}
+  to{opacity:1;transform:scale(1) rotate(0deg)}
+}
+/* Имя появляется снизу */
+.intro-name{
+  font-family:var(--ff-serif);
+  font-size:clamp(38px,6vw,72px);
+  color:var(--c6);font-style:italic;font-weight:300;
+  letter-spacing:.07em;text-align:center;line-height:1.05;
+  margin-top:16px;
+  animation:introSlideUp .7s .4s ease both;
+}
+/* Тег */
 .intro-tagline{
-  font-family:var(--ff-sans);font-size:clamp(11px,1.8vw,14px);
-  color:var(--c4);letter-spacing:.25em;text-transform:uppercase;
-  font-weight:300;
-  animation:fadeUp .9s .25s ease both;
+  font-family:var(--ff-sans);font-size:clamp(10px,1.5vw,13px);
+  color:var(--c5);letter-spacing:.28em;text-transform:uppercase;
+  font-weight:400;margin-top:12px;
+  animation:introSlideUp .7s .6s ease both;
 }
-.intro-line{
-  width:0;height:1px;background:var(--c4);margin-top:10px;
-  animation:expandLine 1s .5s ease forwards;
+/* Декоративная линия с листочком */
+.intro-deco{
+  display:flex;align-items:center;gap:14px;margin-top:20px;
+  animation:introSlideUp .7s .75s ease both;
 }
-@keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:none}}
-@keyframes expandLine{from{width:0;opacity:0}to{width:70px;opacity:1}}
+.intro-deco-line{display:block;height:1px;width:52px;background:var(--c4)}
+.intro-deco-leaf{font-size:18px;line-height:1;color:var(--c5)}
+/* Прогресс-бар */
+.intro-bar-wrap{
+  width:80px;height:2px;background:var(--c3);
+  border-radius:4px;overflow:hidden;margin-top:24px;
+  animation:introSlideUp .5s .9s ease both;
+}
+.intro-bar{
+  height:100%;width:0;
+  background:linear-gradient(90deg,var(--c5),var(--c4));
+  border-radius:4px;
+  animation:introBarFill 1.8s 1s ease forwards;
+}
+@keyframes introSlideUp{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
+@keyframes introBarFill{from{width:0}to{width:100%}}
 
 /* grain */
 body::after{
   content:'';position:fixed;inset:0;pointer-events:none;z-index:1;
-  opacity:.03;
+  opacity:.025;
   background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 
-/* ─── LANG SWITCHER ─── */
+/* ─── LANG BAR ─── */
 .lang-bar{
   position:fixed;top:0;left:0;right:0;z-index:200;
   background:var(--c7);
@@ -78,14 +114,14 @@ body::after{
   font-weight:500;text-transform:uppercase;
   transition:background .2s,color .2s;
 }
-.lang-btn.active,.lang-btn:hover{background:var(--accent);color:var(--c7)}
+.lang-btn.active,.lang-btn:hover{background:var(--accent);color:var(--white)}
 
 /* ─── NAV ─── */
 nav{
   position:fixed;top:32px;left:0;right:0;z-index:100;
-  background:rgba(247,240,232,.93);
+  background:rgba(246,243,238,.95);
   backdrop-filter:blur(18px);
-  border-bottom:1px solid rgba(184,149,106,.2);
+  border-bottom:1px solid rgba(168,201,165,.25);
   transition:top .3s;
 }
 .nav-inner{
@@ -107,7 +143,7 @@ nav{
   content:'';position:absolute;bottom:-2px;left:0;width:0;height:1px;
   background:var(--accent);transition:width .3s;
 }
-.nav-links a:hover{color:var(--c5)}
+.nav-links a:hover{color:var(--c6)}
 .nav-links a:hover::after{width:100%}
 .nav-cta{
   background:var(--c6);color:var(--c3)!important;
@@ -123,14 +159,12 @@ nav{
 .mobile-menu{
   display:none;position:fixed;top:96px;left:0;right:0;
   background:var(--c1);border-bottom:1px solid var(--c3);
-  padding:24px;z-index:99;
-  flex-direction:column;gap:16px;
+  padding:24px;z-index:99;flex-direction:column;gap:16px;
 }
 .mobile-menu.open{display:flex}
 .mobile-menu a{
   font-size:16px;color:var(--text);text-decoration:none;
-  padding:8px 0;border-bottom:1px solid rgba(196,168,130,.2);
-  font-weight:400;
+  padding:8px 0;border-bottom:1px solid rgba(168,201,165,.2);font-weight:400;
 }
 
 /* ─── UTILITY ─── */
@@ -140,19 +174,18 @@ nav{
 .tag{
   display:inline-block;font-size:10px;letter-spacing:.22em;
   text-transform:uppercase;color:var(--accent);
-  background:rgba(196,168,130,.18);border-radius:40px;
-  padding:5px 16px;margin-bottom:18px;font-weight:600;
-  font-family:var(--ff-sans);
+  background:rgba(111,168,106,.15);border-radius:40px;
+  padding:5px 16px;margin-bottom:18px;font-weight:600;font-family:var(--ff-sans);
 }
 h2{font-family:var(--ff-serif);font-weight:300;font-size:clamp(36px,5vw,62px);line-height:1.12;color:var(--c7)}
 h3{font-family:var(--ff-serif);font-weight:400;font-size:clamp(20px,2.5vw,26px);line-height:1.25}
 p{color:var(--muted);font-size:16px;line-height:1.85}
-.divider{width:40px;height:1.5px;background:var(--accent);margin:24px 0;}
+.divider{width:40px;height:1.5px;background:var(--accent);margin:24px 0}
 
 /* foto placeholder */
 .foto{
   background:linear-gradient(145deg,var(--c2),var(--c3));
-  border-radius:var(--r);border:1px solid rgba(196,168,130,.35);
+  border-radius:var(--r);border:1px solid rgba(168,201,165,.35);
   display:flex;flex-direction:column;align-items:center;
   justify-content:center;gap:10px;
   color:var(--c5);font-size:12px;text-align:center;padding:20px;
@@ -160,21 +193,20 @@ p{color:var(--muted);font-size:16px;line-height:1.85}
 }
 .foto img{
   position:absolute;inset:0;width:100%;height:100%;
-  object-fit:cover;border-radius:inherit;
-  transition:transform .5s ease;
+  object-fit:cover;border-radius:inherit;transition:transform .5s ease;
 }
 .foto:hover img{transform:scale(1.04)}
 
 /* ─── HERO ─── */
 #hero{
   min-height:100vh;padding:160px 24px 100px;
-  background:linear-gradient(155deg, var(--c1) 0%, var(--c2) 60%, var(--c3) 100%);
+  background:linear-gradient(155deg,var(--c1) 0%,var(--c2) 60%,var(--c3) 100%);
   position:relative;overflow:hidden;
 }
 #hero::before{
   content:'';position:absolute;top:-250px;right:-200px;
   width:750px;height:750px;border-radius:50%;
-  background:radial-gradient(circle,rgba(184,149,106,.22) 0%,transparent 70%);
+  background:radial-gradient(circle,rgba(168,201,165,.25) 0%,transparent 70%);
   pointer-events:none;
 }
 .hero-grid{
@@ -182,7 +214,7 @@ p{color:var(--muted);font-size:16px;line-height:1.85}
   display:grid;grid-template-columns:1fr 420px;gap:80px;align-items:center;
   position:relative;z-index:2;
 }
-.hero-eyebrow{display:flex;align-items:center;gap:12px;margin-bottom:28px;}
+.hero-eyebrow{display:flex;align-items:center;gap:12px;margin-bottom:28px}
 .hero-line{width:32px;height:1px;background:var(--accent)}
 .hero-eyebrow span{font-size:12px;letter-spacing:.2em;color:var(--accent);text-transform:uppercase;font-weight:500}
 h1{
@@ -200,9 +232,9 @@ h1 em{font-style:italic;color:var(--accent)}
   text-decoration:none;border:none;cursor:pointer;
   letter-spacing:.09em;text-transform:uppercase;
   transition:background .2s,transform .15s,box-shadow .2s;
-  box-shadow:0 6px 28px rgba(92,61,46,.28);
+  box-shadow:0 6px 28px rgba(74,124,78,.28);
 }
-.btn-primary:hover{background:var(--accent);transform:translateY(-2px);box-shadow:0 12px 36px rgba(184,149,106,.4)}
+.btn-primary:hover{background:var(--accent);transform:translateY(-2px);box-shadow:0 12px 36px rgba(111,168,106,.4)}
 .btn-outline{
   display:inline-flex;align-items:center;gap:10px;
   background:transparent;color:var(--c6);
@@ -212,9 +244,9 @@ h1 em{font-style:italic;color:var(--accent)}
   letter-spacing:.08em;text-transform:uppercase;
   transition:background .2s,transform .15s,border-color .2s;
 }
-.btn-outline:hover{background:rgba(184,149,106,.12);transform:translateY(-2px);border-color:var(--accent)}
+.btn-outline:hover{background:rgba(168,201,165,.15);transform:translateY(-2px);border-color:var(--accent)}
 .hero-photo-wrap{position:relative}
-.hero-foto{aspect-ratio:3/4;border-radius:4px 48px 4px 48px;overflow:hidden;}
+.hero-foto{aspect-ratio:3/4;border-radius:4px 48px 4px 48px;overflow:hidden}
 .hero-foto .foto{width:100%;height:100%;border-radius:0;min-height:480px}
 .hero-stat{
   position:absolute;bottom:-20px;left:-30px;
@@ -227,9 +259,7 @@ h1 em{font-style:italic;color:var(--accent)}
 @keyframes floatY{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
 
 /* ─── MARQUEE ─── */
-.marquee-section{
-  background:var(--c6);padding:18px 0;overflow:hidden;
-}
+.marquee-section{background:var(--c6);padding:18px 0;overflow:hidden}
 .marquee-track{
   display:flex;animation:marquee 30s linear infinite;
   white-space:nowrap;width:max-content;
@@ -258,8 +288,7 @@ h1 em{font-style:italic;color:var(--accent)}
 .prob-card:hover{background:var(--c1)}
 .prob-icon{
   width:48px;height:48px;border-radius:50%;
-  background:var(--c2);display:flex;align-items:center;justify-content:center;
-  margin-bottom:18px;
+  background:var(--c2);display:flex;align-items:center;justify-content:center;margin-bottom:18px;
 }
 .prob-card h3{font-size:17px;color:var(--c7);margin-bottom:10px;font-family:var(--ff-sans);font-weight:500}
 .prob-card p{font-size:14px}
@@ -267,7 +296,7 @@ h1 em{font-style:italic;color:var(--accent)}
 /* ─── RESULTS ─── */
 #results{background:var(--c1)}
 .results-layout{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center}
-.results-foto{border-radius:4px 64px 4px 64px;overflow:hidden;aspect-ratio:3/4;position:relative;}
+.results-foto{border-radius:4px 64px 4px 64px;overflow:hidden;aspect-ratio:3/4;position:relative}
 .results-foto .foto{width:100%;height:100%;border-radius:0;min-height:500px}
 .result-list{margin-top:32px}
 .result-item{
@@ -275,10 +304,7 @@ h1 em{font-style:italic;color:var(--accent)}
   padding:24px 0;border-bottom:1px solid var(--c3);align-items:start;
 }
 .result-item:last-child{border-bottom:none}
-.result-n{
-  font-family:var(--ff-serif);font-size:42px;color:var(--c3);
-  font-weight:300;line-height:1;margin-top:2px;
-}
+.result-n{font-family:var(--ff-serif);font-size:42px;color:var(--c3);font-weight:300;line-height:1;margin-top:2px}
 .result-item h3{font-family:var(--ff-sans);font-size:16px;font-weight:600;color:var(--c7);margin-bottom:6px}
 .result-item p{font-size:14px}
 
@@ -286,10 +312,10 @@ h1 em{font-style:italic;color:var(--accent)}
 #about{background:var(--c2)}
 .about-layout{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center}
 .about-foto-wrap{position:relative}
-.about-foto{border-radius:64px 4px 64px 4px;overflow:hidden;aspect-ratio:3/4.2;position:relative;}
+.about-foto{border-radius:64px 4px 64px 4px;overflow:hidden;aspect-ratio:3/4.2;position:relative}
 .about-foto .foto{width:100%;height:100%;border-radius:0;min-height:520px}
-.about-accent{position:absolute;top:-20px;right:-20px;width:120px;height:120px;border-radius:50%;border:1px solid var(--c4);opacity:.5;}
-.about-accent2{position:absolute;bottom:-30px;left:-30px;width:80px;height:80px;border-radius:50%;background:var(--c3);opacity:.4;}
+.about-accent{position:absolute;top:-20px;right:-20px;width:120px;height:120px;border-radius:50%;border:1px solid var(--c4);opacity:.5}
+.about-accent2{position:absolute;bottom:-30px;left:-30px;width:80px;height:80px;border-radius:50%;background:var(--c3);opacity:.4}
 .about-content h2{margin-bottom:16px}
 .about-content p{margin-bottom:18px}
 .creds{display:flex;flex-wrap:wrap;gap:10px;margin-top:28px}
@@ -297,64 +323,41 @@ h1 em{font-style:italic;color:var(--accent)}
   display:flex;align-items:center;gap:8px;
   background:var(--white);border-radius:40px;
   padding:8px 16px;font-size:13px;color:var(--c6);
-  font-weight:500;box-shadow:0 2px 12px rgba(92,61,46,.08);
+  font-weight:500;box-shadow:0 2px 12px rgba(74,124,78,.08);
 }
 
 /* ─── GALLERY ─── */
 #gallery{background:var(--white)}
 .gallery-intro{max-width:520px;margin-bottom:48px}
-.gallery-grid{
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:12px;
-}
+.gallery-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
 .gallery-item{
   position:relative;aspect-ratio:1/1;border-radius:12px;overflow:hidden;
-  cursor:pointer;background:var(--c2);
-  transition:transform .3s, box-shadow .3s;
+  cursor:pointer;background:var(--c2);transition:transform .3s,box-shadow .3s;
 }
-.gallery-item:first-child{grid-column:span 2;grid-row:span 2;aspect-ratio:auto;}
-.gallery-item img{
-  width:100%;height:100%;object-fit:cover;
-  transition:transform .5s ease;display:block;
-}
+.gallery-item:first-child{grid-column:span 2;grid-row:span 2;aspect-ratio:auto}
+.gallery-item img{width:100%;height:100%;object-fit:cover;transition:transform .5s ease;display:block}
 .gallery-item:hover img{transform:scale(1.07)}
-.gallery-item:hover{box-shadow:0 12px 32px rgba(92,61,46,.2)}
+.gallery-item:hover{box-shadow:0 12px 32px rgba(74,124,78,.2)}
 .gallery-overlay{
-  position:absolute;inset:0;
-  background:rgba(44,24,16,.35);
+  position:absolute;inset:0;background:rgba(45,84,50,.35);
   display:flex;align-items:center;justify-content:center;
   opacity:0;transition:opacity .3s;
 }
 .gallery-item:hover .gallery-overlay{opacity:1}
 .gallery-overlay svg{stroke:#fff;opacity:.9}
-.gallery-placeholder{
-  width:100%;height:100%;min-height:120px;
-  display:flex;flex-direction:column;align-items:center;
-  justify-content:center;gap:8px;
-  color:var(--c5);font-size:11px;text-align:center;
-  background:linear-gradient(145deg,var(--c2),var(--c3));
-}
 
 /* lightbox */
 #lightbox{
   position:fixed;inset:0;z-index:8000;
-  background:rgba(20,10,5,.92);
+  background:rgba(20,30,15,.92);
   display:none;align-items:center;justify-content:center;
-  flex-direction:column;gap:16px;
-  backdrop-filter:blur(8px);
+  flex-direction:column;gap:16px;backdrop-filter:blur(8px);
 }
 #lightbox.open{display:flex}
-#lightbox img{
-  max-width:90vw;max-height:80vh;
-  border-radius:8px;object-fit:contain;
-  box-shadow:0 24px 80px rgba(0,0,0,.5);
-}
+#lightbox img{max-width:90vw;max-height:80vh;border-radius:8px;object-fit:contain;box-shadow:0 24px 80px rgba(0,0,0,.5)}
 .lb-close{
-  position:absolute;top:24px;right:28px;
-  background:none;border:none;cursor:pointer;
-  color:#fff;font-size:32px;line-height:1;opacity:.7;
-  transition:opacity .2s;
+  position:absolute;top:24px;right:28px;background:none;border:none;cursor:pointer;
+  color:#fff;font-size:32px;line-height:1;opacity:.7;transition:opacity .2s;
 }
 .lb-close:hover{opacity:1}
 .lb-nav{display:flex;gap:16px;margin-top:8px}
@@ -365,23 +368,20 @@ h1 em{font-style:italic;color:var(--accent)}
 }
 .lb-btn:hover{background:rgba(255,255,255,.2)}
 
-/* ─── HOW IT WORKS ─── */
+/* ─── HOW ─── */
 #how{background:var(--c2)}
 .how-intro{max-width:580px;margin-bottom:72px}
-.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:0;position:relative;}
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:0;position:relative}
 .steps::before{
   content:'';position:absolute;top:40px;left:calc(12.5% + 24px);right:calc(12.5% + 24px);
   height:1px;background:var(--c3);z-index:0;
 }
 .step{position:relative;z-index:1;padding:0 16px;text-align:center}
 .step-num{
-  width:80px;height:80px;border-radius:50%;
-  border:1px solid var(--c3);
+  width:80px;height:80px;border-radius:50%;border:1px solid var(--c3);
   display:flex;align-items:center;justify-content:center;
-  margin:0 auto 24px;
-  font-family:var(--ff-serif);font-size:30px;color:var(--accent);
-  background:var(--c2);font-weight:300;
-  transition:background .3s,border-color .3s;
+  margin:0 auto 24px;font-family:var(--ff-serif);font-size:30px;color:var(--accent);
+  background:var(--c2);font-weight:300;transition:background .3s,border-color .3s;
 }
 .step:hover .step-num{background:var(--c3);border-color:var(--accent)}
 .step h3{font-family:var(--ff-sans);font-size:16px;font-weight:600;color:var(--c7);margin-bottom:10px}
@@ -392,49 +392,39 @@ h1 em{font-style:italic;color:var(--accent)}
 .packages-intro{max-width:520px;margin-bottom:56px}
 .pack-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
 .pack-card{
-  background:var(--white);border-radius:var(--r);
-  padding:40px 32px;position:relative;
-  border:1px solid var(--c3);
-  transition:transform .25s,box-shadow .25s,border-color .25s;
+  background:var(--white);border-radius:var(--r);padding:40px 32px;position:relative;
+  border:1px solid var(--c3);transition:transform .25s,box-shadow .25s,border-color .25s;
 }
 .pack-card:hover{transform:translateY(-8px);box-shadow:var(--shadow)}
-.pack-card.feat{border-color:var(--accent);}
+.pack-card.feat{border-color:var(--accent)}
 .pack-badge{
   position:absolute;top:-14px;left:50%;transform:translateX(-50%);
-  background:var(--c6);color:var(--c3);
-  border-radius:40px;padding:4px 20px;font-size:11px;
-  font-weight:600;letter-spacing:.1em;text-transform:uppercase;white-space:nowrap;
+  background:var(--c6);color:var(--c3);border-radius:40px;padding:4px 20px;
+  font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;white-space:nowrap;
 }
-.pack-icon{
-  width:56px;height:56px;border-radius:50%;
-  background:var(--c2);display:flex;align-items:center;justify-content:center;margin-bottom:20px;
-}
+.pack-icon{width:56px;height:56px;border-radius:50%;background:var(--c2);display:flex;align-items:center;justify-content:center;margin-bottom:20px}
 .pack-card h3{font-family:var(--ff-serif);font-size:30px;margin-bottom:8px;font-weight:300}
 .pack-desc{font-size:13px;color:var(--muted);margin-bottom:28px;line-height:1.7}
 .pack-features{list-style:none;margin-bottom:32px}
 .pack-features li{
-  font-size:14px;padding:9px 0;
-  border-bottom:1px solid var(--c2);
+  font-size:14px;padding:9px 0;border-bottom:1px solid var(--c2);
   display:flex;gap:10px;align-items:flex-start;color:var(--text);
 }
 .pack-features li:last-child{border-bottom:none}
 .pack-check{
-  width:18px;height:18px;border-radius:50%;
-  background:rgba(184,149,106,.2);display:flex;align-items:center;
-  justify-content:center;flex-shrink:0;margin-top:1px;
+  width:18px;height:18px;border-radius:50%;background:rgba(111,168,106,.2);
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;
 }
 .pack-btn{
-  display:block;text-align:center;width:100%;
-  border-radius:4px;padding:14px;
+  display:block;text-align:center;width:100%;border-radius:4px;padding:14px;
   font-family:var(--ff-sans);font-size:13px;font-weight:500;
-  text-decoration:none;border:none;cursor:pointer;
-  letter-spacing:.08em;text-transform:uppercase;
+  text-decoration:none;border:none;cursor:pointer;letter-spacing:.08em;text-transform:uppercase;
   transition:background .2s,transform .15s;
 }
 .pack-btn-solid{background:var(--c6);color:var(--white)}
 .pack-btn-solid:hover{background:var(--accent);transform:translateY(-1px)}
 .pack-btn-ghost{background:transparent;color:var(--c6);border:1.5px solid var(--c4)}
-.pack-btn-ghost:hover{background:rgba(184,149,106,.12);transform:translateY(-1px)}
+.pack-btn-ghost:hover{background:rgba(168,201,165,.15);transform:translateY(-1px)}
 
 /* ─── FAQ ─── */
 #faq{background:var(--white)}
@@ -445,20 +435,18 @@ h1 em{font-style:italic;color:var(--accent)}
 .faq-item{border-bottom:1px solid var(--c3)}
 .faq-q{
   display:flex;justify-content:space-between;align-items:center;
-  padding:22px 0;cursor:pointer;
-  font-family:var(--ff-sans);font-size:16px;font-weight:500;color:var(--c7);
-  gap:20px;user-select:none;transition:color .2s;
+  padding:22px 0;cursor:pointer;font-family:var(--ff-sans);font-size:16px;
+  font-weight:500;color:var(--c7);gap:20px;user-select:none;transition:color .2s;
 }
 .faq-q:hover{color:var(--accent)}
 .faq-icon{
-  width:32px;height:32px;border-radius:50%;
-  border:1px solid var(--c4);display:flex;align-items:center;
-  justify-content:center;flex-shrink:0;
+  width:32px;height:32px;border-radius:50%;border:1px solid var(--c4);
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;
   transition:background .2s,border-color .2s,transform .3s;
 }
 .faq-item.open .faq-icon{background:var(--accent);border-color:var(--accent);transform:rotate(45deg)}
 .faq-item.open .faq-icon svg{stroke:#fff}
-.faq-a{max-height:0;overflow:hidden;transition:max-height .4s ease,padding .3s;}
+.faq-a{max-height:0;overflow:hidden;transition:max-height .4s ease,padding .3s}
 .faq-item.open .faq-a{max-height:400px}
 .faq-a-inner{padding:0 0 22px;font-size:15px;color:var(--muted);line-height:1.85}
 
@@ -467,155 +455,114 @@ h1 em{font-style:italic;color:var(--accent)}
 .reviews-intro{max-width:520px;margin-bottom:56px}
 .reviews-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:24px}
 .review-card{
-  background:var(--white);border-radius:var(--r);
-  padding:32px;box-shadow:0 4px 24px rgba(92,61,46,.07);
-  transition:transform .25s;position:relative;
+  background:var(--white);border-radius:var(--r);padding:32px;
+  box-shadow:0 4px 24px rgba(74,124,78,.07);transition:transform .25s;position:relative;
 }
 .review-card:hover{transform:translateY(-4px)}
-
-/* Stars display */
-.review-stars{
-  display:flex;gap:3px;margin-bottom:14px;
-  font-size:0;
-}
-.review-stars-inner{display:flex;gap:3px;}
-.r-star{font-size:18px;color:var(--c3);}
-.r-star.lit{color:var(--accent);}
-
+.review-stars{display:flex;gap:3px;margin-bottom:14px}
+.review-stars-inner{display:flex;gap:3px}
+.r-star{font-size:18px;color:var(--c3)}
+.r-star.lit{color:var(--accent)}
 .review-text{
   font-family:var(--ff-serif);font-size:19px;font-style:italic;
   color:var(--c7);line-height:1.6;margin-bottom:20px;font-weight:300;
 }
 .review-author{display:flex;align-items:center;gap:12px}
 .review-av{
-  width:44px;height:44px;border-radius:50%;
-  background:var(--c2);border:1px solid var(--c3);
+  width:44px;height:44px;border-radius:50%;background:var(--c2);border:1px solid var(--c3);
   display:flex;align-items:center;justify-content:center;
-  font-family:var(--ff-serif);font-size:20px;color:var(--accent);
-  font-weight:300;overflow:hidden;flex-shrink:0;
+  font-family:var(--ff-serif);font-size:20px;color:var(--accent);font-weight:300;overflow:hidden;flex-shrink:0;
 }
-.review-av img{width:100%;height:100%;object-fit:cover;}
+.review-av img{width:100%;height:100%;object-fit:cover}
 .review-info strong{display:block;font-size:14px;font-weight:600;color:var(--c7)}
 .review-info span{font-size:12px;color:var(--muted)}
 .review-tag{
   display:inline-block;margin-top:14px;
-  background:rgba(184,149,106,.15);border-radius:40px;
+  background:rgba(111,168,106,.15);border-radius:40px;
   padding:4px 12px;font-size:12px;color:var(--accent);font-weight:500;
 }
-
-/* review photos in card */
-.review-photos{display:flex;gap:8px;margin-top:14px;flex-wrap:wrap;}
+.review-photos{display:flex;gap:8px;margin-top:14px;flex-wrap:wrap}
 .review-photo-thumb{
-  width:56px;height:56px;border-radius:8px;overflow:hidden;
-  cursor:pointer;flex-shrink:0;
-  border:1.5px solid var(--c3);
-  transition:transform .2s,border-color .2s;
+  width:56px;height:56px;border-radius:8px;overflow:hidden;cursor:pointer;flex-shrink:0;
+  border:1.5px solid var(--c3);transition:transform .2s,border-color .2s;
 }
 .review-photo-thumb:hover{transform:scale(1.06);border-color:var(--accent)}
-.review-photo-thumb img{width:100%;height:100%;object-fit:cover;}
+.review-photo-thumb img{width:100%;height:100%;object-fit:cover}
 
 /* review form */
 .review-form-wrap{
-  background:var(--white);border-radius:var(--r);
-  padding:40px;margin-top:40px;
+  background:var(--white);border-radius:var(--r);padding:40px;margin-top:40px;
   border:1px dashed var(--c4);
 }
-.review-form-title{
-  font-family:var(--ff-serif);font-size:28px;color:var(--c7);
-  margin-bottom:8px;font-weight:300;
-}
+.review-form-title{font-family:var(--ff-serif);font-size:28px;color:var(--c7);margin-bottom:8px;font-weight:300}
 .review-form-sub{font-size:14px;color:var(--muted);margin-bottom:28px}
 .form-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
 .form-field{display:flex;flex-direction:column;gap:6px}
 .form-field.full{grid-column:1/-1}
 label{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);font-weight:600}
 input,textarea,select{
-  background:var(--c1);border:1.5px solid var(--c3);
-  border-radius:8px;padding:12px 16px;
+  background:var(--c1);border:1.5px solid var(--c3);border-radius:8px;padding:12px 16px;
   font-family:var(--ff-sans);font-size:15px;color:var(--c7);
   outline:none;transition:border-color .2s;width:100%;
 }
 input:focus,textarea:focus,select:focus{border-color:var(--accent)}
 textarea{resize:vertical;min-height:100px}
-
-/* interactive stars in form */
 .star-select{display:flex;gap:6px;margin-top:6px}
 .star-btn{
-  font-size:28px;cursor:pointer;color:var(--c3);
-  transition:color .15s,transform .2s;background:none;border:none;padding:0;
-  line-height:1;
+  font-size:32px;cursor:pointer;color:var(--c3);
+  transition:color .15s,transform .25s;background:none;border:none;padding:0;line-height:1;
 }
-.star-btn.active{color:var(--accent);text-shadow:0 0 12px rgba(184,149,106,.5);}
-.star-btn:hover{transform:scale(1.2)}
-
-/* photo upload */
+.star-btn.active{
+  color:var(--accent);
+  filter:drop-shadow(0 0 6px rgba(111,168,106,.6));
+  transform:scale(1.15);
+}
+.star-btn:hover{transform:scale(1.25);color:var(--c4)}
 .photo-upload-area{
   border:1.5px dashed var(--c4);border-radius:8px;padding:20px;
-  text-align:center;cursor:pointer;transition:background .2s,border-color .2s;
-  position:relative;
+  text-align:center;cursor:pointer;transition:background .2s,border-color .2s;position:relative;
 }
-.photo-upload-area:hover{background:rgba(184,149,106,.06);border-color:var(--accent)}
-.photo-upload-area input[type=file]{
-  position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%;
-}
+.photo-upload-area:hover{background:rgba(168,201,165,.08);border-color:var(--accent)}
+.photo-upload-area input[type=file]{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%}
 .photo-upload-icon{color:var(--accent);margin-bottom:8px}
 .photo-upload-text{font-size:13px;color:var(--muted)}
-.upload-preview{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px;}
-.upload-thumb{
-  position:relative;width:60px;height:60px;border-radius:8px;overflow:hidden;
-  border:1.5px solid var(--c3);
-}
-.upload-thumb img{width:100%;height:100%;object-fit:cover;}
+.upload-preview{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.upload-thumb{position:relative;width:60px;height:60px;border-radius:8px;overflow:hidden;border:1.5px solid var(--c3)}
+.upload-thumb img{width:100%;height:100%;object-fit:cover}
 .upload-thumb-del{
-  position:absolute;top:2px;right:2px;
-  background:rgba(20,10,5,.6);border:none;cursor:pointer;
+  position:absolute;top:2px;right:2px;background:rgba(20,30,15,.6);border:none;cursor:pointer;
   width:18px;height:18px;border-radius:50%;color:#fff;font-size:11px;
   display:flex;align-items:center;justify-content:center;
 }
-
-.form-submit{margin-top:20px;display:flex;align-items:center;gap:16px;flex-wrap:wrap;}
+.form-submit{margin-top:20px;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
 .form-note{font-size:12px;color:var(--muted)}
 
-/* submit animation */
 @keyframes successPop{
   0%{transform:scale(0.7) translateY(20px);opacity:0}
   60%{transform:scale(1.05) translateY(-4px);opacity:1}
   100%{transform:scale(1) translateY(0);opacity:1}
 }
 #review-success{
-  display:none;
-  text-align:center;padding:28px 20px;margin-top:20px;
-  border-radius:12px;
-  background:linear-gradient(135deg,rgba(184,149,106,.12),rgba(184,149,106,.06));
-  border:1px solid rgba(184,149,106,.3);
+  display:none;text-align:center;padding:28px 20px;margin-top:20px;border-radius:12px;
+  background:linear-gradient(135deg,rgba(111,168,106,.12),rgba(111,168,106,.06));
+  border:1px solid rgba(111,168,106,.3);
 }
-#review-success.show{
-  display:block;
-  animation:successPop .5s cubic-bezier(.34,1.56,.64,1) both;
-}
+#review-success.show{display:block;animation:successPop .5s cubic-bezier(.34,1.56,.64,1) both}
 .success-icon{font-size:48px;margin-bottom:10px;display:block}
 .success-text{font-family:var(--ff-serif);font-size:22px;color:var(--c6);font-weight:300}
 .success-sub{font-size:14px;color:var(--muted);margin-top:6px}
 
-/* confetti canvas */
-#confetti-canvas{
-  position:fixed;inset:0;pointer-events:none;z-index:9000;
-}
+#confetti-canvas{position:fixed;inset:0;pointer-events:none;z-index:9000}
 
 /* ─── ADVANTAGES ─── */
 #advantages{background:var(--c1)}
 .adv-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:32px}
 .adv-card{
   padding:32px 24px;text-align:center;border-radius:var(--r);
-  background:var(--white);transition:transform .25s,box-shadow .25s;
-  border:1px solid var(--c2);
+  background:var(--white);transition:transform .25s,box-shadow .25s;border:1px solid var(--c2);
 }
 .adv-card:hover{transform:translateY(-6px);box-shadow:var(--shadow)}
-.adv-icon{
-  width:64px;height:64px;border-radius:50%;
-  background:var(--c2);display:flex;align-items:center;justify-content:center;
-  margin:0 auto 20px;
-}
+.adv-icon{width:64px;height:64px;border-radius:50%;background:var(--c2);display:flex;align-items:center;justify-content:center;margin:0 auto 20px}
 .adv-card h3{font-family:var(--ff-sans);font-size:16px;font-weight:600;color:var(--c7);margin-bottom:10px}
 .adv-card p{font-size:14px}
 
@@ -624,22 +571,15 @@ textarea{resize:vertical;min-height:100px}
   background:linear-gradient(135deg,var(--c7) 0%,var(--c6) 60%,var(--c5) 100%);
   padding:120px 24px;text-align:center;position:relative;overflow:hidden;
 }
-#cta::before{
-  content:'';position:absolute;top:-50%;right:-10%;
-  width:500px;height:500px;border-radius:50%;
-  background:rgba(255,255,255,.03);
-}
+#cta::before{content:'';position:absolute;top:-50%;right:-10%;width:500px;height:500px;border-radius:50%;background:rgba(255,255,255,.03)}
 #cta .tag{background:rgba(255,255,255,.1);color:var(--c3)}
 #cta h2{color:var(--white);margin-bottom:16px;position:relative;z-index:1}
 #cta p{color:rgba(255,255,255,.65);max-width:480px;margin:0 auto 48px;font-size:17px;position:relative;z-index:1}
 .btn-light{
-  display:inline-flex;align-items:center;gap:12px;
-  background:var(--white);color:var(--c6);
-  border-radius:4px;padding:18px 40px;
-  font-family:var(--ff-sans);font-size:13px;font-weight:600;
+  display:inline-flex;align-items:center;gap:12px;background:var(--white);color:var(--c6);
+  border-radius:4px;padding:18px 40px;font-family:var(--ff-sans);font-size:13px;font-weight:600;
   text-decoration:none;letter-spacing:.1em;text-transform:uppercase;
-  box-shadow:0 8px 32px rgba(0,0,0,.2);
-  transition:transform .2s,box-shadow .2s,background .2s;position:relative;z-index:1;
+  box-shadow:0 8px 32px rgba(0,0,0,.2);transition:transform .2s,box-shadow .2s,background .2s;position:relative;z-index:1;
 }
 .btn-light:hover{transform:translateY(-3px);box-shadow:0 18px 44px rgba(0,0,0,.28);background:var(--c1)}
 
@@ -648,120 +588,86 @@ footer{background:var(--c7);padding:48px 24px 0;text-align:center}
 .footer-logo{font-family:var(--ff-serif);font-size:28px;color:var(--c3);font-style:italic;margin-bottom:16px;font-weight:300}
 footer p{color:rgba(255,255,255,.3);font-size:13px}
 footer a{color:var(--c4);text-decoration:none}
-
-/* footer badge */
-.footer-badge{
-  margin-top:28px;padding:16px 0 20px;
-  border-top:1px solid rgba(255,255,255,.08);
-}
+.footer-badge{margin-top:28px;padding:16px 0 20px;border-top:1px solid rgba(255,255,255,.08)}
 .badge-text{
-  display:inline-flex;align-items:center;gap:6px;
-  font-family:var(--ff-sans);font-size:12px;
-  color:rgba(255,255,255,.25);text-decoration:none;
-  letter-spacing:.05em;
-  transition:color .2s;
+  display:inline-flex;align-items:center;gap:6px;font-family:var(--ff-sans);font-size:12px;
+  color:rgba(255,255,255,.25);text-decoration:none;letter-spacing:.05em;transition:color .2s;
 }
 .badge-text:hover{color:var(--c4)}
 .badge-text strong{color:rgba(255,255,255,.4);font-weight:600}
 
-/* ─── ADMIN PANEL ─── */
+/* ─── ADMIN ─── */
 #admin-toggle{
-  position:fixed;bottom:24px;right:24px;z-index:300;
-  width:44px;height:44px;border-radius:50%;
-  background:var(--c6);border:none;cursor:pointer;
-  display:flex;align-items:center;justify-content:center;
-  box-shadow:0 4px 16px rgba(92,61,46,.3);
-  transition:transform .2s,background .2s;opacity:.45;
+  position:fixed;bottom:24px;right:24px;z-index:300;width:44px;height:44px;border-radius:50%;
+  background:var(--c6);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;
+  box-shadow:0 4px 16px rgba(74,124,78,.3);transition:transform .2s,background .2s;opacity:.45;
 }
 #admin-toggle:hover{transform:scale(1.1);opacity:1}
 #admin-panel{
   display:none;position:fixed;inset:0;z-index:400;
-  background:rgba(44,24,16,.75);backdrop-filter:blur(10px);
+  background:rgba(20,40,20,.75);backdrop-filter:blur(10px);
   align-items:center;justify-content:center;
 }
 #admin-panel.open{display:flex}
 .admin-box{
-  background:var(--white);border-radius:var(--r);
-  padding:40px;max-width:720px;width:92%;
-  max-height:85vh;overflow-y:auto;
+  background:var(--white);border-radius:var(--r);padding:40px;
+  max-width:720px;width:92%;max-height:85vh;overflow-y:auto;
 }
 .admin-title{font-family:var(--ff-serif);font-size:30px;color:var(--c7);margin-bottom:8px;font-weight:300}
 .admin-sub{font-size:14px;color:var(--muted);margin-bottom:28px}
-.admin-tabs{display:flex;gap:8px;margin-bottom:24px;border-bottom:1px solid var(--c3);padding-bottom:12px;}
+.admin-tabs{display:flex;gap:8px;margin-bottom:24px;border-bottom:1px solid var(--c3);padding-bottom:12px}
 .admin-tab{
   padding:8px 18px;border-radius:40px;border:none;cursor:pointer;
   font-family:var(--ff-sans);font-size:13px;font-weight:500;
-  background:var(--c2);color:var(--c6);
-  transition:background .2s,color .2s;
+  background:var(--c2);color:var(--c6);transition:background .2s,color .2s;
 }
 .admin-tab.active{background:var(--c6);color:var(--c3)}
 .admin-login{display:flex;gap:12px;margin-bottom:24px;flex-wrap:wrap}
 .admin-login input{flex:1;min-width:200px}
-.admin-review-item{
-  padding:16px;border-radius:10px;background:var(--c1);margin-bottom:12px;
-  border:1px solid var(--c3);
-}
+.admin-review-item{padding:16px;border-radius:10px;background:var(--c1);margin-bottom:12px;border:1px solid var(--c3)}
 .admin-review-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;flex-wrap:wrap;gap:8px}
 .admin-review-name{font-weight:600;font-size:15px;color:var(--c7)}
 .admin-review-date{font-size:12px;color:var(--muted)}
 .admin-review-text{font-size:14px;color:var(--muted);margin-bottom:12px;font-style:italic}
 .admin-review-actions{display:flex;gap:10px;flex-wrap:wrap}
 .btn-approve{
-  padding:6px 16px;border-radius:4px;border:none;cursor:pointer;
-  background:var(--accent);color:var(--white);font-size:12px;
-  font-family:var(--ff-sans);font-weight:500;letter-spacing:.06em;text-transform:uppercase;
-  transition:background .2s;
+  padding:6px 16px;border-radius:4px;border:none;cursor:pointer;background:var(--accent);
+  color:var(--white);font-size:12px;font-family:var(--ff-sans);font-weight:500;letter-spacing:.06em;text-transform:uppercase;transition:background .2s;
 }
 .btn-approve:hover{background:var(--c6)}
 .btn-delete{
-  padding:6px 16px;border-radius:4px;border:none;cursor:pointer;
-  background:transparent;color:#C0392B;border:1.5px solid #C0392B;
-  font-size:12px;font-family:var(--ff-sans);font-weight:500;letter-spacing:.06em;text-transform:uppercase;
-  transition:background .2s,color .2s;
+  padding:6px 16px;border-radius:4px;border:none;cursor:pointer;background:transparent;
+  color:#C0392B;border:1.5px solid #C0392B;font-size:12px;font-family:var(--ff-sans);
+  font-weight:500;letter-spacing:.06em;text-transform:uppercase;transition:background .2s,color .2s;
 }
 .btn-delete:hover{background:#C0392B;color:#fff}
 .admin-empty{text-align:center;padding:40px;color:var(--muted);font-style:italic}
-.admin-close{
-  float:right;background:none;border:none;cursor:pointer;
-  font-size:26px;color:var(--muted);margin-left:16px;line-height:1;
-}
-.status-approved{background:rgba(184,149,106,.2);border-radius:4px;padding:2px 8px;font-size:11px;color:var(--accent);font-weight:600;}
-.status-pending{background:rgba(240,180,60,.15);border-radius:4px;padding:2px 8px;font-size:11px;color:#8B6914;font-weight:600;}
-
-/* photo manager in admin */
-.photo-manager{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:12px;margin-top:16px;}
+.admin-close{float:right;background:none;border:none;cursor:pointer;font-size:26px;color:var(--muted);margin-left:16px;line-height:1}
+.status-approved{background:rgba(111,168,106,.2);border-radius:4px;padding:2px 8px;font-size:11px;color:var(--accent);font-weight:600}
+.status-pending{background:rgba(240,180,60,.15);border-radius:4px;padding:2px 8px;font-size:11px;color:#6B6414;font-weight:600}
+.photo-manager{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:12px;margin-top:16px}
 .photo-slot{
-  background:var(--c2);border-radius:10px;overflow:hidden;
-  aspect-ratio:1/1;position:relative;border:1.5px dashed var(--c4);
-  transition:border-color .2s;
+  background:var(--c2);border-radius:10px;overflow:hidden;aspect-ratio:1/1;
+  position:relative;border:1.5px dashed var(--c4);transition:border-color .2s;
 }
 .photo-slot:hover{border-color:var(--accent)}
-.photo-slot img{width:100%;height:100%;object-fit:cover;display:block;}
+.photo-slot img{width:100%;height:100%;object-fit:cover;display:block}
 .photo-slot-overlay{
-  position:absolute;inset:0;background:rgba(20,10,5,.55);
+  position:absolute;inset:0;background:rgba(20,40,20,.55);
   display:flex;flex-direction:column;align-items:center;justify-content:center;
   gap:8px;opacity:0;transition:opacity .2s;
 }
 .photo-slot:hover .photo-slot-overlay{opacity:1}
 .photo-slot-label{font-size:11px;color:rgba(255,255,255,.8);text-align:center;letter-spacing:.06em}
-.photo-slot-btn{
-  background:var(--accent);border:none;color:#fff;
-  padding:5px 14px;border-radius:20px;cursor:pointer;
-  font-size:11px;font-family:var(--ff-sans);font-weight:500;
-}
-.photo-slot input[type=file]{
-  position:absolute;inset:0;opacity:0;cursor:pointer;
-}
+.photo-slot-btn{background:var(--accent);border:none;color:#fff;padding:5px 14px;border-radius:20px;cursor:pointer;font-size:11px;font-family:var(--ff-sans);font-weight:500}
+.photo-slot input[type=file]{position:absolute;inset:0;opacity:0;cursor:pointer}
 .photo-slot-del{
-  background:rgba(192,57,43,.8);border:none;color:#fff;
-  padding:4px 10px;border-radius:20px;cursor:pointer;
-  font-size:11px;font-family:var(--ff-sans);
-  position:absolute;bottom:8px;right:8px;
-  display:none;
+  background:rgba(192,57,43,.8);border:none;color:#fff;padding:4px 10px;border-radius:20px;
+  cursor:pointer;font-size:11px;font-family:var(--ff-sans);position:absolute;bottom:8px;right:8px;display:none;
 }
 .photo-slot:hover .photo-slot-del{display:block}
 
-/* ─── SCROLL REVEALS ─── */
+/* ─── REVEALS ─── */
 .reveal{opacity:0;transform:translateY(36px);transition:opacity .8s ease,transform .8s ease}
 .reveal.visible{opacity:1;transform:none}
 .reveal-left{opacity:0;transform:translateX(-40px);transition:opacity .8s ease,transform .8s ease}
@@ -783,7 +689,7 @@ footer a{color:var(--c4);text-decoration:none}
   .adv-grid{grid-template-columns:repeat(2,1fr)}
   .faq-layout{grid-template-columns:1fr}
   .gallery-grid{grid-template-columns:repeat(3,1fr)}
-  .gallery-item:first-child{grid-column:span 1;grid-row:span 1;}
+  .gallery-item:first-child{grid-column:span 1;grid-row:span 1}
 }
 @media(max-width:768px){
   .hero-grid{grid-template-columns:1fr;gap:48px}
@@ -811,25 +717,28 @@ footer a{color:var(--c4);text-decoration:none}
   .gallery-grid{grid-template-columns:1fr}
   .gallery-item:first-child{grid-column:span 1}
 }
-
-/* prevent scroll jump on mobile resize */
-html{
-  -webkit-text-size-adjust:100%;
-  text-size-adjust:100%;
-}
-* { -webkit-tap-highlight-color: transparent; }
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
+*{-webkit-tap-highlight-color:transparent}
 </style>
 </head>
 <body>
 
-<!-- ─── INTRO OVERLAY ─── -->
+<!-- INTRO -->
 <div id="intro-overlay">
-  <div class="intro-logo">Юлия Петрова</div>
-  <div class="intro-tagline">Нутрициолог · Персональный подход</div>
-  <div class="intro-line"></div>
+  <div class="intro-scene">
+    <img class="intro-logo-img" src="/mnt/user-data/uploads/5917962693757308165.jpg" alt="logo"/>
+    <div class="intro-name">Юлия Петров</div>
+    <div class="intro-tagline">Нутрициолог · Персональный подход</div>
+    <div class="intro-deco">
+      <span class="intro-deco-line"></span>
+      <span class="intro-deco-leaf">🌿</span>
+      <span class="intro-deco-line"></span>
+    </div>
+    <div class="intro-bar-wrap"><div class="intro-bar"></div></div>
+  </div>
 </div>
 
-<!-- ─── LIGHTBOX ─── -->
+<!-- LIGHTBOX -->
 <div id="lightbox">
   <button class="lb-close" onclick="closeLightbox()">×</button>
   <img id="lb-img" src="" alt=""/>
@@ -838,21 +747,19 @@ html{
     <button class="lb-btn" onclick="lbNext()">Вперёд →</button>
   </div>
 </div>
-
-<!-- confetti canvas -->
 <canvas id="confetti-canvas"></canvas>
 
-<!-- ─── LANG BAR ─── -->
+<!-- LANG BAR -->
 <div class="lang-bar">
   <button class="lang-btn active" onclick="setLang('ru')">RU</button>
   <button class="lang-btn" onclick="setLang('et')">ET</button>
   <button class="lang-btn" onclick="setLang('en')">EN</button>
 </div>
 
-<!-- ─── NAV ─── -->
+<!-- NAV -->
 <nav id="mainnav">
   <div class="nav-inner">
-    <a class="nav-logo" href="#" data-t="nav_logo">Юлия Петрова</a>
+    <a class="nav-logo" href="#" data-t="nav_logo">Юлия Петров</a>
     <ul class="nav-links">
       <li><a href="#problems" data-t="nav_for_whom">Для кого</a></li>
       <li><a href="#about" data-t="nav_about">Обо мне</a></li>
@@ -862,9 +769,7 @@ html{
       <li><a href="#faq" data-t="nav_faq">Вопросы</a></li>
       <li><a href="https://instagram.com/" target="_blank" class="nav-cta" data-t="nav_cta">Написать</a></li>
     </ul>
-    <button class="burger" id="burger" aria-label="Menu">
-      <span></span><span></span><span></span>
-    </button>
+    <button class="burger" id="burger"><span></span><span></span><span></span></button>
   </div>
 </nav>
 <div class="mobile-menu" id="mobile-menu">
@@ -877,7 +782,7 @@ html{
   <a href="https://instagram.com/" target="_blank" data-t="nav_cta">Написать в Instagram</a>
 </div>
 
-<!-- ─── HERO ─── -->
+<!-- HERO -->
 <section id="hero">
   <div class="hero-grid">
     <div class="hero-content">
@@ -897,11 +802,10 @@ html{
     </div>
     <div class="hero-photo-wrap">
       <div class="hero-foto">
-        <div class="foto" id="heroFotoWrap" style="height:100%;min-height:480px" onclick="document.getElementById('heroFotoInput').click()">
-          <img id="heroFotoImg" src="" alt="" style="display:none"/>
-          <div id="heroFotoPlaceholder">
+        <div class="foto" id="heroFotoWrap" style="height:100%;min-height:480px;cursor:pointer" onclick="document.getElementById('heroFotoInput').click()">
+          <img id="heroFotoImg" src="/mnt/user-data/uploads/5917962693757308172__1_.jpg" alt="Юлия Петров" style="display:block"/>
+          <div id="heroFotoPlaceholder" style="display:none">
             <svg width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" opacity=".4"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
-            <span style="font-size:11px;line-height:1.7" data-t="foto_hint">Фото эксперта<br>800 × 1000 px</span>
           </div>
         </div>
         <input type="file" id="heroFotoInput" accept="image/*" style="display:none" onchange="loadPhotoSlot('heroFoto',this)"/>
@@ -914,7 +818,7 @@ html{
   </div>
 </section>
 
-<!-- ─── MARQUEE ─── -->
+<!-- MARQUEE -->
 <div class="marquee-section">
   <div class="marquee-track">
     <span class="marquee-item"><span data-t="m1">Персональный план питания</span><span class="marquee-dot"></span></span>
@@ -932,14 +836,14 @@ html{
   </div>
 </div>
 
-<!-- ─── PROBLEMS ─── -->
+<!-- PROBLEMS -->
 <section id="problems" class="section">
   <div class="container">
     <div class="problems-intro reveal">
       <span class="tag" data-t="prob_tag">Узнаёте себя?</span>
       <h2 data-t="prob_h2">Когда что-то идёт<br>не так</h2>
       <div class="divider"></div>
-      <p data-t="prob_sub">Если хоть один из этих пунктов про вас — вы на правильном сайте. Именно с этим я работаю каждый день.</p>
+      <p data-t="prob_sub">Если хоть один из этих пунктов про вас — вы на правильном сайте.</p>
     </div>
     <div class="probs-grid stagger">
       <div class="prob-card">
@@ -971,7 +875,7 @@ html{
   </div>
 </section>
 
-<!-- ─── RESULTS ─── -->
+<!-- RESULTS -->
 <section id="results" class="section">
   <div class="container">
     <div class="results-layout">
@@ -980,7 +884,7 @@ html{
           <img id="resultsFotoImg" src="" alt="" style="display:none"/>
           <div id="resultsFotoPlaceholder">
             <svg width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" opacity=".4"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
-            <span style="font-size:11px;line-height:1.7" data-t="foto_result_hint">Фото до/после или<br>lifestyle-фото 600×800 px<br><br>🖱 Нажмите, чтобы загрузить</span>
+            <span style="font-size:11px;line-height:1.7" data-t="foto_result_hint">Фото до/после<br>🖱 Нажмите, чтобы загрузить</span>
           </div>
         </div>
         <input type="file" id="resultsFotoInput" accept="image/*" style="display:none" onchange="loadPhotoSlot('resultsFoto',this)"/>
@@ -990,17 +894,17 @@ html{
         <h2 data-t="res_h2">Реальные изменения,<br>которые почувствуете</h2>
         <div class="divider"></div>
         <div class="result-list">
-          <div class="result-item"><div class="result-n">01</div><div><h3 data-t="r1_h">Энергия с утра до вечера</h3><p data-t="r1_t">Просыпаетесь отдохнувшей, продуктивны весь день. Больше не зависите от кофеина.</p></div></div>
-          <div class="result-item"><div class="result-n">02</div><div><h3 data-t="r2_h">Комфортное снижение веса</h3><p data-t="r2_t">Без голода, срывов и жёстких ограничений. Вес уходит — и не возвращается.</p></div></div>
+          <div class="result-item"><div class="result-n">01</div><div><h3 data-t="r1_h">Энергия с утра до вечера</h3><p data-t="r1_t">Просыпаетесь отдохнувшей, продуктивны весь день.</p></div></div>
+          <div class="result-item"><div class="result-n">02</div><div><h3 data-t="r2_h">Комфортное снижение веса</h3><p data-t="r2_t">Без голода, срывов и жёстких ограничений.</p></div></div>
           <div class="result-item"><div class="result-n">03</div><div><h3 data-t="r3_h">Лёгкость в теле</h3><p data-t="r3_t">Уходит вздутие и дискомфорт. Пищеварение работает как часы.</p></div></div>
-          <div class="result-item"><div class="result-n">04</div><div><h3 data-t="r4_h">Система питания на всю жизнь</h3><p data-t="r4_t">Понимаете что и зачем есть. Питание становится удовольствием, а не стрессом.</p></div></div>
+          <div class="result-item"><div class="result-n">04</div><div><h3 data-t="r4_h">Система питания на всю жизнь</h3><p data-t="r4_t">Питание становится удовольствием, а не стрессом.</p></div></div>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ─── ABOUT ─── -->
+<!-- ABOUT -->
 <section id="about" class="section">
   <div class="container">
     <div class="about-layout">
@@ -1009,8 +913,8 @@ html{
         <h2 data-t="about_h2">Привет, я — Юлия</h2>
         <div class="divider"></div>
         <p data-t="about_p1">Я нутрициолог, и верю что здоровое питание — это не про ограничения. Это про понимание своего тела и глубокую заботу о себе.</p>
-        <p data-t="about_p2">Несколько лет назад я сама прошла через хроническую усталость, проблемы с пищеварением и бесконечные эксперименты с диетами. Именно тогда поняла: работает только то, что подходит именно тебе.</p>
-        <p data-t="about_p3">Сейчас я помогаю людям разобраться в своём питании без стресса и самонасилия. Я объясняю почему — а не просто говорю что делать. И остаюсь рядом на каждом шагу.</p>
+        <p data-t="about_p2">Несколько лет назад я сама прошла через хроническую усталость, проблемы с пищеварением и бесконечные эксперименты с диетами.</p>
+        <p data-t="about_p3">Сейчас я помогаю людям разобраться в своём питании без стресса. Я объясняю почему — а не просто говорю что делать.</p>
         <div class="creds">
           <div class="cred"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg><span data-t="cred1">Диплом нутрициолога</span></div>
           <div class="cred"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2"><rect x="8" y="2" width="8" height="4" rx="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><path d="M9 12l2 2 4-4"/></svg><span data-t="cred2">Международные сертификаты</span></div>
@@ -1026,7 +930,7 @@ html{
             <img id="aboutFotoImg" src="" alt="" style="display:none"/>
             <div id="aboutFotoPlaceholder">
               <svg width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" opacity=".4"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
-              <span style="font-size:11px;line-height:1.7" data-t="foto_about_hint">Живое фото эксперта<br>700 × 840 px<br><br>🖱 Нажмите, чтобы загрузить</span>
+              <span style="font-size:11px;line-height:1.7" data-t="foto_about_hint">Фото эксперта<br>🖱 Нажмите загрузить</span>
             </div>
           </div>
           <input type="file" id="aboutFotoInput" accept="image/*" style="display:none" onchange="loadPhotoSlot('aboutFoto',this)"/>
@@ -1036,40 +940,38 @@ html{
   </div>
 </section>
 
-<!-- ─── GALLERY ─── -->
+<!-- GALLERY -->
 <section id="gallery" class="section">
   <div class="container">
     <div class="gallery-intro reveal">
       <span class="tag" data-t="gal_tag">Результаты</span>
-      <h2 data-t="gal_h2">Фото и<br>результаты</h2>
+      <h2 data-t="gal_h2">Фото и результаты</h2>
       <div class="divider"></div>
-      <p data-t="gal_sub">Нажмите на любое фото, чтобы открыть. Администратор может менять фотографии через панель управления.</p>
+      <p data-t="gal_sub">Нажмите на фото чтобы открыть. Менять фото можно через панель администратора.</p>
     </div>
-    <div class="gallery-grid stagger" id="galleryGrid">
-      <!-- rendered by JS -->
-    </div>
+    <div class="gallery-grid stagger" id="galleryGrid"></div>
   </div>
 </section>
 
-<!-- ─── HOW IT WORKS ─── -->
+<!-- HOW -->
 <section id="how" class="section">
   <div class="container">
     <div class="how-intro reveal">
       <span class="tag" data-t="how_tag">Как проходит работа</span>
       <h2 data-t="how_h2">Просто, понятно,<br>без стресса</h2>
       <div class="divider"></div>
-      <p data-t="how_sub">Никаких марафонов и строгих планов. Системная работа в вашем темпе с опорой на вашу жизнь.</p>
+      <p data-t="how_sub">Никаких марафонов и строгих планов. Системная работа в вашем темпе.</p>
     </div>
     <div class="steps stagger">
-      <div class="step"><div class="step-num">01</div><h3 data-t="s1_h">Анализ и знакомство</h3><p data-t="s1_t">Заполняете анкету, рассказываете о себе. Я изучаю ваш образ жизни, цели и историю питания.</p></div>
-      <div class="step"><div class="step-num">02</div><h3 data-t="s2_h">Разбор и план</h3><p data-t="s2_t">Анализирую ваш рацион, нахожу точки роста и составляю персональные рекомендации.</p></div>
-      <div class="step"><div class="step-num">03</div><h3 data-t="s3_h">Объяснение логики</h3><p data-t="s3_t">Рассказываю не просто «что делать», а «почему». Вы понимаете логику своего тела.</p></div>
-      <div class="step"><div class="step-num">04</div><h3 data-t="s4_h">Сопровождение</h3><p data-t="s4_t">Я рядом — отвечаю на вопросы, корректирую план, поддерживаю в процессе каждый день.</p></div>
+      <div class="step"><div class="step-num">01</div><h3 data-t="s1_h">Анализ и знакомство</h3><p data-t="s1_t">Заполняете анкету, рассказываете о себе. Я изучаю ваш образ жизни и цели.</p></div>
+      <div class="step"><div class="step-num">02</div><h3 data-t="s2_h">Разбор и план</h3><p data-t="s2_t">Анализирую ваш рацион и составляю персональные рекомендации.</p></div>
+      <div class="step"><div class="step-num">03</div><h3 data-t="s3_h">Объяснение логики</h3><p data-t="s3_t">Рассказываю не просто «что делать», а «почему».</p></div>
+      <div class="step"><div class="step-num">04</div><h3 data-t="s4_h">Сопровождение</h3><p data-t="s4_t">Я рядом — отвечаю на вопросы, корректирую план каждый день.</p></div>
     </div>
   </div>
 </section>
 
-<!-- ─── PACKAGES ─── -->
+<!-- PACKAGES -->
 <section id="packages" class="section">
   <div class="container">
     <div class="packages-intro reveal">
@@ -1082,7 +984,7 @@ html{
       <div class="pack-card">
         <div class="pack-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg></div>
         <h3 data-t="pk1_h">Консультация</h3>
-        <p class="pack-desc" data-t="pk1_d">Разовая встреча для тех, кто хочет разобраться и получить конкретный план действий прямо сейчас.</p>
+        <p class="pack-desc" data-t="pk1_d">Разовая встреча для тех, кто хочет конкретный план действий прямо сейчас.</p>
         <ul class="pack-features">
           <li><div class="pack-check"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div><span data-t="pk1_f1">Анализ рациона и образа жизни</span></li>
           <li><div class="pack-check"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div><span data-t="pk1_f2">Персональные рекомендации</span></li>
@@ -1095,7 +997,7 @@ html{
         <div class="pack-badge" data-t="pk2_badge">Популярный выбор</div>
         <div class="pack-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.5"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div>
         <h3 data-t="pk2_h">Сопровождение</h3>
-        <p class="pack-desc" data-t="pk2_d">Работаем вместе 1–3 месяца. Я рядом на каждом шаге — от анализа до устойчивого результата.</p>
+        <p class="pack-desc" data-t="pk2_d">Работаем вместе 1–3 месяца. Я рядом на каждом шаге.</p>
         <ul class="pack-features">
           <li><div class="pack-check"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div><span data-t="pk2_f1">Полный анализ рациона</span></li>
           <li><div class="pack-check"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div><span data-t="pk2_f2">Персональный план питания</span></li>
@@ -1109,7 +1011,7 @@ html{
       <div class="pack-card">
         <div class="pack-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
         <h3 data-t="pk3_h">VIP</h3>
-        <p class="pack-desc" data-t="pk3_d">Максимальное погружение и индивидуальный подход для тех, кто хочет лучшего результата.</p>
+        <p class="pack-desc" data-t="pk3_d">Максимальное погружение и индивидуальный подход.</p>
         <ul class="pack-features">
           <li><div class="pack-check"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div><span data-t="pk3_f1">Всё из пакета «Сопровождение»</span></li>
           <li><div class="pack-check"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div><span data-t="pk3_f2">Приоритетная связь 24/7</span></li>
@@ -1123,7 +1025,7 @@ html{
   </div>
 </section>
 
-<!-- ─── FAQ ─── -->
+<!-- FAQ -->
 <section id="faq" class="section">
   <div class="container">
     <div class="faq-layout">
@@ -1134,63 +1036,33 @@ html{
         <p data-t="faq_sub">Здесь я ответила на самые частые вопросы. Если вашего нет — пишите напрямую.</p>
       </div>
       <div class="faq-list reveal-right">
-        <div class="faq-item">
-          <div class="faq-q" onclick="toggleFaq(this)"><span data-t="faq1_q">Мне подойдёт, если я не в Эстонии?</span><div class="faq-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div></div>
-          <div class="faq-a"><div class="faq-a-inner" data-t="faq1_a">Да! Я работаю полностью онлайн, поэтому ваше местоположение не важно. Созваниваемся в Zoom или Google Meet, общаемся в мессенджере — всё удалённо и удобно.</div></div>
-        </div>
-        <div class="faq-item">
-          <div class="faq-q" onclick="toggleFaq(this)"><span data-t="faq2_q">Как долго длится программа?</span><div class="faq-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div></div>
-          <div class="faq-a"><div class="faq-a-inner" data-t="faq2_a">Продолжительность зависит от ваших целей и выбранного формата. Разовая консультация — 1–1.5 часа. Программа сопровождения — от 1 до 3 месяцев. Я подберу оптимальный вариант именно для вас на первом знакомстве.</div></div>
-        </div>
-        <div class="faq-item">
-          <div class="faq-q" onclick="toggleFaq(this)"><span data-t="faq3_q">Будет ли жёсткое меню и ограничения?</span><div class="faq-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div></div>
-          <div class="faq-a"><div class="faq-a-inner" data-t="faq3_a">Нет. Мой подход строится на мягких, устойчивых изменениях. Никаких запрещённых продуктов и жёстких диет. Мы работаем с тем, что вы любите есть, и постепенно выстраиваем здоровые привычки.</div></div>
-        </div>
-        <div class="faq-item">
-          <div class="faq-q" onclick="toggleFaq(this)"><span data-t="faq4_q">Нужно ли сдавать анализы перед работой?</span><div class="faq-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div></div>
-          <div class="faq-a"><div class="faq-a-inner" data-t="faq4_a">Анализы не обязательны, но очень помогают. Если у вас есть результаты — отлично, разберём их вместе. Если нет — я подскажу что именно стоит проверить, исходя из ваших жалоб и целей.</div></div>
-        </div>
-        <div class="faq-item">
-          <div class="faq-q" onclick="toggleFaq(this)"><span data-t="faq5_q">Как я могу начать работу с вами?</span><div class="faq-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div></div>
-          <div class="faq-a"><div class="faq-a-inner" data-t="faq5_a">Очень просто — напишите мне в Instagram. Я отвечу в течение нескольких часов. Мы кратко пообщаемся, я пойму ваш запрос и предложу подходящий формат. Первое знакомство всегда бесплатно.</div></div>
-        </div>
-        <div class="faq-item">
-          <div class="faq-q" onclick="toggleFaq(this)"><span data-t="faq6_q">Сколько стоят ваши услуги?</span><div class="faq-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div></div>
-          <div class="faq-a"><div class="faq-a-inner" data-t="faq6_a">Стоимость зависит от формата и длительности программы. Я не выставляю фиксированный прайс, потому что каждый случай индивидуален. Напишите мне — обсудим ваш запрос и я назову точную цену.</div></div>
-        </div>
+        <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)"><span data-t="faq1_q">Мне подойдёт, если я не в Эстонии?</span><div class="faq-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div></div><div class="faq-a"><div class="faq-a-inner" data-t="faq1_a">Да! Я работаю полностью онлайн. Созваниваемся в Zoom или Google Meet — всё удалённо и удобно.</div></div></div>
+        <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)"><span data-t="faq2_q">Как долго длится программа?</span><div class="faq-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div></div><div class="faq-a"><div class="faq-a-inner" data-t="faq2_a">Разовая консультация — 1–1.5 часа. Программа сопровождения — от 1 до 3 месяцев.</div></div></div>
+        <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)"><span data-t="faq3_q">Будет ли жёсткое меню и ограничения?</span><div class="faq-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div></div><div class="faq-a"><div class="faq-a-inner" data-t="faq3_a">Нет. Мой подход строится на мягких, устойчивых изменениях. Никаких запрещённых продуктов.</div></div></div>
+        <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)"><span data-t="faq4_q">Нужно ли сдавать анализы перед работой?</span><div class="faq-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div></div><div class="faq-a"><div class="faq-a-inner" data-t="faq4_a">Анализы не обязательны, но помогают. Если есть — разберём вместе. Если нет — подскажу что проверить.</div></div></div>
+        <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)"><span data-t="faq5_q">Как я могу начать работу с вами?</span><div class="faq-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div></div><div class="faq-a"><div class="faq-a-inner" data-t="faq5_a">Напишите мне в Instagram. Первое знакомство всегда бесплатно.</div></div></div>
+        <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)"><span data-t="faq6_q">Сколько стоят ваши услуги?</span><div class="faq-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div></div><div class="faq-a"><div class="faq-a-inner" data-t="faq6_a">Стоимость зависит от формата. Напишите мне — обсудим и я назову точную цену.</div></div></div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ─── REVIEWS ─── -->
+<!-- REVIEWS -->
 <section id="reviews" class="section">
   <div class="container">
     <div class="reviews-intro reveal">
       <span class="tag" data-t="rev_tag">Реальные отзывы</span>
       <h2 data-t="rev_h2">Что говорят<br>клиенты</h2>
       <div class="divider"></div>
-      <p data-t="rev_sub">Здесь настоящие отзывы от реальных людей. Можете оставить свой — он появится после проверки.</p>
+      <p data-t="rev_sub">Настоящие отзывы от реальных людей. Можете оставить свой — он появится после проверки.</p>
     </div>
     <div class="reviews-grid" id="reviewsContainer"></div>
-
-    <!-- review form -->
     <div class="review-form-wrap reveal" style="margin-top:48px">
       <div class="review-form-title" data-t="rf_title">Оставьте свой отзыв</div>
       <p class="review-form-sub" data-t="rf_sub">Ваш отзыв будет опубликован после проверки. Это занимает до 24 часов.</p>
       <div class="form-grid">
-        <div class="form-field">
-          <label data-t="rf_name_label">Ваше имя</label>
-          <input type="text" id="rfName" placeholder="Анна, 32 года"/>
-        </div>
-        <div class="form-field">
-          <label data-t="rf_program_label">Программа</label>
-          <select id="rfProgram">
-            <option data-t="rf_p1">Консультация</option>
-            <option data-t="rf_p2">Сопровождение</option>
-            <option data-t="rf_p3">VIP</option>
-          </select>
-        </div>
+        <div class="form-field"><label data-t="rf_name_label">Ваше имя</label><input type="text" id="rfName" placeholder="Анна, 32 года"/></div>
+        <div class="form-field"><label data-t="rf_program_label">Программа</label><select id="rfProgram"><option data-t="rf_p1">Консультация</option><option data-t="rf_p2">Сопровождение</option><option data-t="rf_p3">VIP</option></select></div>
         <div class="form-field full">
           <label data-t="rf_rating_label">Оценка</label>
           <div class="star-select" id="starSelect">
@@ -1201,21 +1073,13 @@ html{
             <button class="star-btn" onclick="setStar(5)">★</button>
           </div>
         </div>
-        <div class="form-field full">
-          <label data-t="rf_text_label">Ваш отзыв</label>
-          <textarea id="rfText" rows="4" placeholder="Расскажите о своём опыте работы..."></textarea>
-        </div>
-        <div class="form-field">
-          <label data-t="rf_result_label">Ваш результат (кратко)</label>
-          <input type="text" id="rfResult" placeholder="−5 кг, больше энергии..."/>
-        </div>
+        <div class="form-field full"><label data-t="rf_text_label">Ваш отзыв</label><textarea id="rfText" rows="4" placeholder="Расскажите о своём опыте работы..."></textarea></div>
+        <div class="form-field"><label data-t="rf_result_label">Ваш результат (кратко)</label><input type="text" id="rfResult" placeholder="−5 кг, больше энергии..."/></div>
         <div class="form-field">
           <label>Фото (необязательно)</label>
           <div class="photo-upload-area">
             <input type="file" id="rfPhotos" accept="image/*" multiple onchange="previewUploadPhotos(this)"/>
-            <div class="photo-upload-icon">
-              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
-            </div>
+            <div class="photo-upload-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg></div>
             <div class="photo-upload-text">Нажмите, чтобы добавить фото<br><span style="font-size:11px;opacity:.6">до 5 фото, JPG/PNG</span></div>
           </div>
           <div class="upload-preview" id="uploadPreview"></div>
@@ -1226,7 +1090,7 @@ html{
         <span class="form-note" data-t="rf_note">Отзыв будет опубликован после проверки</span>
       </div>
       <div id="review-success">
-        <span class="success-icon">✨</span>
+        <span class="success-icon">🌿</span>
         <div class="success-text" data-t="rf_success_title">Спасибо за ваш отзыв!</div>
         <div class="success-sub" data-t="rf_success_sub">Он появится на сайте после проверки — обычно в течение 24 часов.</div>
       </div>
@@ -1234,7 +1098,7 @@ html{
   </div>
 </section>
 
-<!-- ─── ADVANTAGES ─── -->
+<!-- ADVANTAGES -->
 <section id="advantages" class="section">
   <div class="container">
     <div style="text-align:center;max-width:520px;margin:0 auto 64px" class="reveal">
@@ -1249,8 +1113,7 @@ html{
     </div>
   </div>
 </section>
-
-<!-- ─── CTA ─── -->
+<!-- CTA -->
 <section id="cta">
   <div class="container" style="text-align:center;position:relative;z-index:2">
     <span class="tag" data-t="cta_tag">Первый шаг</span>
@@ -1263,9 +1126,9 @@ html{
   </div>
 </section>
 
-<!-- ─── FOOTER ─── -->
+<!-- FOOTER -->
 <footer>
-  <div class="footer-logo">Юлия Петрова</div>
+  <div class="footer-logo">Юлия Петров</div>
   <p>© 2025 · <a href="https://instagram.com/" target="_blank">@julia_petrov_nutritio</a> · <span data-t="footer_copy">Нутрициолог, Эстония</span></p>
   <div class="footer-badge">
     <a href="https://northpixel.vercel.app/" target="_blank" class="badge-text">
@@ -1274,12 +1137,12 @@ html{
   </div>
 </footer>
 
-<!-- ─── ADMIN TOGGLE ─── -->
+<!-- ADMIN TOGGLE -->
 <button id="admin-toggle" title="Admin" onclick="openAdmin()">
   <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--c3)" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M20 21a8 8 0 0 0-16 0"/></svg>
 </button>
 
-<!-- ─── ADMIN PANEL ─── -->
+<!-- ADMIN PANEL -->
 <div id="admin-panel">
   <div class="admin-box">
     <button class="admin-close" onclick="closeAdmin()">×</button>
@@ -1294,9 +1157,7 @@ html{
         <button class="admin-tab active" onclick="switchTab('reviews',this)">Отзывы</button>
         <button class="admin-tab" onclick="switchTab('photos',this)">Фотографии</button>
       </div>
-      <div id="adminTabReviews">
-        <div id="adminReviewList"></div>
-      </div>
+      <div id="adminTabReviews"><div id="adminReviewList"></div></div>
       <div id="adminTabPhotos" style="display:none">
         <p style="font-size:14px;color:var(--muted);margin-bottom:16px">Нажмите на слот, чтобы загрузить или заменить фотографию.</p>
         <div class="photo-manager" id="photoManager"></div>
@@ -1304,348 +1165,293 @@ html{
     </div>
   </div>
 </div>
-Вот концовка — вставь с новой строки после последнего `</div>` (закрывающий div панели администратора):
 
-```html
 <script>
-// ─── TRANSLATIONS ───
 const T = {
-  ru: {
-    nav_logo:'Юлия Петрова', nav_for_whom:'Для кого', nav_about:'Обо мне',
-    nav_how:'Как работаем', nav_packages:'Программы', nav_reviews:'Отзывы',
-    nav_faq:'Вопросы', nav_cta:'Написать',
+  ru:{
+    nav_logo:'Юлия Петров',nav_for_whom:'Для кого',nav_about:'Обо мне',
+    nav_how:'Как работаем',nav_packages:'Программы',nav_reviews:'Отзывы',
+    nav_faq:'Вопросы',nav_cta:'Написать',
     hero_eyebrow:'Нутрициолог · Мягкий подход · Эстония',
     hero_h1:'Питание, которое<br><em>работает для вас</em>',
     hero_sub:'Возвращаю энергию, улучшаю самочувствие и выстраиваю комфортную систему питания — без жёстких диет и давления на себя.',
-    hero_cta1:'Написать в Instagram', hero_cta2:'Посмотреть программы',
+    hero_cta1:'Написать в Instagram',hero_cta2:'Посмотреть программы',
     hero_stat:'клиентов вернули<br>энергию и лёгкость',
-    foto_hint:'Фото эксперта<br>800 × 1000 px',
-    foto_result_hint:'Фото до/после или<br>lifestyle-фото 600×800 px<br><br>🖱 Нажмите, чтобы загрузить',
-    foto_about_hint:'Живое фото эксперта<br>700 × 840 px<br><br>🖱 Нажмите, чтобы загрузить',
-    m1:'Персональный план питания', m2:'Без жёстких диет', m3:'Работа с ЖКТ',
-    m4:'Снижение веса', m5:'Энергия и бодрость', m6:'Онлайн-сопровождение',
-    prob_tag:'Узнаёте себя?', prob_h2:'Когда что-то идёт<br>не так',
+    foto_result_hint:'Фото до/после<br>🖱 Нажмите загрузить',
+    foto_about_hint:'Фото эксперта<br>🖱 Нажмите загрузить',
+    m1:'Персональный план питания',m2:'Без жёстких диет',m3:'Работа с ЖКТ',
+    m4:'Снижение веса',m5:'Энергия и бодрость',m6:'Онлайн-сопровождение',
+    prob_tag:'Узнаёте себя?',prob_h2:'Когда что-то идёт<br>не так',
     prob_sub:'Если хоть один из этих пунктов про вас — вы на правильном сайте.',
-    p1_h:'Постоянная усталость', p1_t:'Просыпаетесь разбитой, к обеду уже нет сил. Кофе больше не помогает.',
-    p2_h:'Проблемы с ЖКТ', p2_t:'Вздутие, тяжесть, дискомфорт после еды — это не норма, но стало нормой.',
-    p3_h:'Лишний вес', p3_t:'Диеты не работают, вес возвращается, а мотивация тает с каждой попыткой.',
-    p4_h:'Кожа и внешний вид', p4_t:'Высыпания, тусклость, ломкие волосы — организм говорит о чём-то важном.',
-    p5_h:'Хаос в питании', p5_t:'Не понимаете что есть, читаете противоречивые советы и не знаете кому верить.',
-    res_tag:'Что вы получите', res_h2:'Реальные изменения,<br>которые почувствуете',
-    r1_h:'Энергия с утра до вечера', r1_t:'Просыпаетесь отдохнувшей, продуктивны весь день.',
-    r2_h:'Комфортное снижение веса', r2_t:'Без голода, срывов и жёстких ограничений.',
-    r3_h:'Лёгкость в теле', r3_t:'Уходит вздутие и дискомфорт. Пищеварение работает как часы.',
-    r4_h:'Система питания на всю жизнь', r4_t:'Питание становится удовольствием, а не стрессом.',
-    about_tag:'Обо мне', about_h2:'Привет, я — Юлия',
+    p1_h:'Постоянная усталость',p1_t:'Просыпаетесь разбитой, к обеду уже нет сил.',
+    p2_h:'Проблемы с ЖКТ',p2_t:'Вздутие, тяжесть, дискомфорт после еды.',
+    p3_h:'Лишний вес',p3_t:'Диеты не работают, вес возвращается.',
+    p4_h:'Кожа и внешний вид',p4_t:'Высыпания, тусклость, ломкие волосы.',
+    p5_h:'Хаос в питании',p5_t:'Не понимаете что есть, читаете противоречивые советы.',
+    res_tag:'Что вы получите',res_h2:'Реальные изменения,<br>которые почувствуете',
+    r1_h:'Энергия с утра до вечера',r1_t:'Просыпаетесь отдохнувшей, продуктивны весь день.',
+    r2_h:'Комфортное снижение веса',r2_t:'Без голода, срывов и жёстких ограничений.',
+    r3_h:'Лёгкость в теле',r3_t:'Уходит вздутие и дискомфорт.',
+    r4_h:'Система питания на всю жизнь',r4_t:'Питание становится удовольствием, а не стрессом.',
+    about_tag:'Обо мне',about_h2:'Привет, я — Юлия',
     about_p1:'Я нутрициолог, и верю что здоровое питание — это не про ограничения.',
     about_p2:'Несколько лет назад я сама прошла через хроническую усталость и бесконечные эксперименты с диетами.',
-    about_p3:'Сейчас я помогаю людям разобраться в своём питании без стресса. Я объясняю почему — а не просто говорю что делать.',
-    cred1:'Диплом нутрициолога', cred2:'Международные сертификаты', cred3:'100+ клиентов', cred4:'Опыт более 3 лет',
-    gal_tag:'Результаты', gal_h2:'Фото и<br>результаты',
-    gal_sub:'Нажмите на любое фото, чтобы открыть. Администратор может менять фотографии через панель.',
-    how_tag:'Как проходит работа', how_h2:'Просто, понятно,<br>без стресса',
+    about_p3:'Сейчас я помогаю людям разобраться в своём питании без стресса.',
+    cred1:'Диплом нутрициолога',cred2:'Международные сертификаты',cred3:'100+ клиентов',cred4:'Опыт более 3 лет',
+    gal_tag:'Результаты',gal_h2:'Фото и результаты',
+    gal_sub:'Нажмите на фото чтобы открыть.',
+    how_tag:'Как проходит работа',how_h2:'Просто, понятно,<br>без стресса',
     how_sub:'Никаких марафонов и строгих планов. Системная работа в вашем темпе.',
-    s1_h:'Анализ и знакомство', s1_t:'Заполняете анкету, рассказываете о себе.',
-    s2_h:'Разбор и план', s2_t:'Анализирую рацион, составляю персональные рекомендации.',
-    s3_h:'Объяснение логики', s3_t:'Рассказываю не просто «что делать», а «почему».',
-    s4_h:'Сопровождение', s4_t:'Я рядом — отвечаю на вопросы, корректирую план каждый день.',
-    pack_tag:'Программы', pack_h2:'Выберите свой<br>формат работы',
-    pack_sub:'Каждая программа — персональный подход, не шаблон. Цены обсуждаем индивидуально.',
-    pk1_h:'Консультация', pk1_d:'Разовая встреча для тех, кто хочет конкретный план действий.',
-    pk1_f1:'Анализ рациона и образа жизни', pk1_f2:'Персональные рекомендации',
-    pk1_f3:'Ответы на ваши вопросы', pk1_f4:'Конспект после встречи',
-    pk2_badge:'Популярный выбор', pk2_h:'Сопровождение',
+    s1_h:'Анализ и знакомство',s1_t:'Заполняете анкету, рассказываете о себе.',
+    s2_h:'Разбор и план',s2_t:'Анализирую рацион, составляю рекомендации.',
+    s3_h:'Объяснение логики',s3_t:'Рассказываю не просто «что делать», а «почему».',
+    s4_h:'Сопровождение',s4_t:'Я рядом — отвечаю на вопросы, корректирую план каждый день.',
+    pack_tag:'Программы',pack_h2:'Выберите свой<br>формат работы',
+    pack_sub:'Каждая программа — персональный подход. Цены обсуждаем индивидуально.',
+    pk1_h:'Консультация',pk1_d:'Разовая встреча для тех, кто хочет конкретный план действий.',
+    pk1_f1:'Анализ рациона и образа жизни',pk1_f2:'Персональные рекомендации',
+    pk1_f3:'Ответы на ваши вопросы',pk1_f4:'Конспект после встречи',
+    pk2_badge:'Популярный выбор',pk2_h:'Сопровождение',
     pk2_d:'Работаем вместе 1–3 месяца. Я рядом на каждом шаге.',
-    pk2_f1:'Полный анализ рациона', pk2_f2:'Персональный план питания',
-    pk2_f3:'Еженедельные созвоны', pk2_f4:'Поддержка в мессенджере',
-    pk2_f5:'Корректировка плана по ходу', pk2_f6:'Объяснение каждого шага',
-    pk3_h:'VIP', pk3_d:'Максимальное погружение для тех, кто хочет лучшего результата.',
-    pk3_f1:'Всё из пакета «Сопровождение»', pk3_f2:'Приоритетная связь 24/7',
-    pk3_f3:'Расшифровка анализов', pk3_f4:'Меню и рецепты под вас', pk3_f5:'Разбор спортивного режима',
-    pk_learn:'Узнать подробнее', pk_write:'Написать и узнать цену',
-    faq_tag:'Вопросы и ответы', faq_h2:'Часто<br>спрашивают',
-    faq_sub:'Здесь я ответила на самые частые вопросы. Если вашего нет — пишите напрямую.',
-    faq1_q:'Мне подойдёт, если я не в Эстонии?',
-    faq1_a:'Да! Я работаю полностью онлайн. Созваниваемся в Zoom или Google Meet — всё удалённо и удобно.',
-    faq2_q:'Как долго длится программа?',
-    faq2_a:'Разовая консультация — 1–1.5 часа. Программа сопровождения — от 1 до 3 месяцев.',
-    faq3_q:'Будет ли жёсткое меню и ограничения?',
-    faq3_a:'Нет. Мой подход строится на мягких, устойчивых изменениях. Никаких запрещённых продуктов.',
-    faq4_q:'Нужно ли сдавать анализы перед работой?',
-    faq4_a:'Анализы не обязательны, но помогают. Если есть — разберём вместе. Если нет — подскажу что проверить.',
-    faq5_q:'Как я могу начать работу с вами?',
-    faq5_a:'Напишите мне в Instagram. Первое знакомство всегда бесплатно.',
-    faq6_q:'Сколько стоят ваши услуги?',
-    faq6_a:'Стоимость зависит от формата. Напишите мне — обсудим и я назову точную цену.',
-    rev_tag:'Реальные отзывы', rev_h2:'Что говорят<br>клиенты',
-    rev_sub:'Настоящие отзывы от реальных людей. Можете оставить свой — появится после проверки.',
-    rf_title:'Оставьте свой отзыв',
-    rf_sub:'Ваш отзыв будет опубликован после проверки. Это занимает до 24 часов.',
-    rf_name_label:'Ваше имя', rf_program_label:'Программа',
-    rf_p1:'Консультация', rf_p2:'Сопровождение', rf_p3:'VIP',
-    rf_rating_label:'Оценка', rf_text_label:'Ваш отзыв',
-    rf_result_label:'Ваш результат (кратко)',
-    rf_submit:'Отправить отзыв', rf_note:'Отзыв будет опубликован после проверки',
-    rf_success_title:'Спасибо за ваш отзыв!',
-    rf_success_sub:'Он появится на сайте после проверки — обычно в течение 24 часов.',
-    adv_tag:'Почему со мной', adv_h2:'Подход, который<br>действительно работает',
-    adv1_h:'Объясняю, а не диктую', adv1_t:'Вы понимаете логику рекомендаций.',
-    adv2_h:'Поддержка на каждом шаге', adv2_t:'Я рядом — в вопросах, сомнениях и маленьких победах.',
-    adv3_h:'Без давления и диет', adv3_t:'Работаем в вашем темпе и с вашими реальными возможностями.',
-    adv4_h:'Результат, который остаётся', adv4_t:'Не временная диета, а система привычек на всю жизнь.',
-    cta_tag:'Первый шаг', cta_h2:'Готовы начать?',
+    pk2_f1:'Полный анализ рациона',pk2_f2:'Персональный план питания',
+    pk2_f3:'Еженедельные созвоны',pk2_f4:'Поддержка в мессенджере',
+    pk2_f5:'Корректировка плана по ходу',pk2_f6:'Объяснение каждого шага',
+    pk3_h:'VIP',pk3_d:'Максимальное погружение и индивидуальный подход.',
+    pk3_f1:'Всё из пакета «Сопровождение»',pk3_f2:'Приоритетная связь 24/7',
+    pk3_f3:'Расшифровка анализов',pk3_f4:'Меню и рецепты под вас',pk3_f5:'Разбор спортивного режима',
+    pk_learn:'Узнать подробнее',pk_write:'Написать и узнать цену',
+    faq_tag:'Вопросы и ответы',faq_h2:'Часто<br>спрашивают',
+    faq_sub:'Здесь я ответила на самые частые вопросы.',
+    faq1_q:'Мне подойдёт, если я не в Эстонии?',faq1_a:'Да! Я работаю полностью онлайн. Созваниваемся в Zoom — всё удалённо и удобно.',
+    faq2_q:'Как долго длится программа?',faq2_a:'Разовая консультация — 1–1.5 часа. Сопровождение — от 1 до 3 месяцев.',
+    faq3_q:'Будет ли жёсткое меню и ограничения?',faq3_a:'Нет. Мой подход строится на мягких изменениях. Никаких запрещённых продуктов.',
+    faq4_q:'Нужно ли сдавать анализы?',faq4_a:'Не обязательно, но помогает. Если есть — разберём вместе.',
+    faq5_q:'Как начать работу с вами?',faq5_a:'Напишите мне в Instagram. Первое знакомство всегда бесплатно.',
+    faq6_q:'Сколько стоят ваши услуги?',faq6_a:'Стоимость зависит от формата. Напишите мне — назову точную цену.',
+    rev_tag:'Реальные отзывы',rev_h2:'Что говорят<br>клиенты',
+    rev_sub:'Настоящие отзывы от реальных людей.',
+    rf_title:'Оставьте свой отзыв',rf_sub:'Ваш отзыв будет опубликован после проверки.',
+    rf_name_label:'Ваше имя',rf_program_label:'Программа',
+    rf_p1:'Консультация',rf_p2:'Сопровождение',rf_p3:'VIP',
+    rf_rating_label:'Оценка',rf_text_label:'Ваш отзыв',rf_result_label:'Ваш результат (кратко)',
+    rf_submit:'Отправить отзыв',rf_note:'Отзыв будет опубликован после проверки',
+    rf_success_title:'Спасибо за ваш отзыв!',rf_success_sub:'Он появится на сайте после проверки.',
+    adv_tag:'Почему со мной',adv_h2:'Подход, который<br>действительно работает',
+    adv1_h:'Объясняю, а не диктую',adv1_t:'Вы понимаете логику рекомендаций.',
+    adv2_h:'Поддержка на каждом шаге',adv2_t:'Я рядом — в вопросах, сомнениях и победах.',
+    adv3_h:'Без давления и диет',adv3_t:'Работаем в вашем темпе.',
+    adv4_h:'Результат, который остаётся',adv4_t:'Система привычек на всю жизнь.',
+    cta_tag:'Первый шаг',cta_h2:'Готовы начать?',
     cta_sub:'Напишите мне — обсудим ваш запрос. Первое знакомство всегда бесплатно.',
     cta_btn:'Написать в Instagram',
     footer_copy:'Нутрициолог, Эстония',
     no_reviews:'Одобренных отзывов пока нет.',
-    pending_label:'На проверке', approved_label:'Опубликован',
-    btn_approve:'Одобрить', btn_delete:'Удалить',
-    admin_no_reviews:'Отзывов нет.'
+    pending_label:'На проверке',approved_label:'Опубликован',
+    btn_approve:'Одобрить',btn_delete:'Удалить',admin_no_reviews:'Отзывов нет.'
   },
-  et: {
-    nav_logo:'Julia Petrova', nav_for_whom:'Kellele', nav_about:'Minust',
-    nav_how:'Kuidas töötame', nav_packages:'Programmid', nav_reviews:'Arvustused',
-    nav_faq:'Küsimused', nav_cta:'Kirjuta',
+  et:{
+    nav_logo:'Julia Petrov',nav_for_whom:'Kellele',nav_about:'Minust',
+    nav_how:'Kuidas töötame',nav_packages:'Programmid',nav_reviews:'Arvustused',
+    nav_faq:'Küsimused',nav_cta:'Kirjuta',
     hero_eyebrow:'Toitumisnõustaja · Pehme lähenemine · Eesti',
     hero_h1:'Toitumine, mis<br><em>töötab teie jaoks</em>',
-    hero_sub:'Taastan energia, parandan enesetunnet ja rakendan mugava toitumissüsteemi — ilma rangete dieetideta.',
-    hero_cta1:'Kirjuta Instagramis', hero_cta2:'Vaata programme',
+    hero_sub:'Taastan energia ja rakendan mugava toitumissüsteemi — ilma rangete dieetideta.',
+    hero_cta1:'Kirjuta Instagramis',hero_cta2:'Vaata programme',
     hero_stat:'klienti taastasid<br>energia ja kerguse',
-    foto_hint:'Eksperdi foto<br>800 × 1000 px',
-    foto_result_hint:'Enne/pärast foto<br>600×800 px<br><br>🖱 Klõpsa laadimiseks',
-    foto_about_hint:'Elav eksperdi foto<br>700 × 840 px<br><br>🖱 Klõpsa laadimiseks',
-    m1:'Isiklik toitumisplaan', m2:'Ilma rangete dieetideta', m3:'Seedimisega töötamine',
-    m4:'Kaalu langetamine', m5:'Energia ja elujõud', m6:'Veebisaatmine',
-    prob_tag:'Kas tunned ennast ära?', prob_h2:'Kui midagi läheb<br>valesti',
+    foto_result_hint:'Enne/pärast foto<br>🖱 Klõpsa laadimiseks',
+    foto_about_hint:'Eksperdi foto<br>🖱 Klõpsa laadimiseks',
+    m1:'Isiklik toitumisplaan',m2:'Ilma rangete dieetideta',m3:'Seedimisega töötamine',
+    m4:'Kaalu langetamine',m5:'Energia ja elujõud',m6:'Veebisaatmine',
+    prob_tag:'Kas tunned ennast ära?',prob_h2:'Kui midagi läheb<br>valesti',
     prob_sub:'Kui kas või üks neist punktidest on sinu kohta — oled õigel saidil.',
-    p1_h:'Pidev väsimus', p1_t:'Ärkad katki, lõunaks pole enam jõudu.',
-    p2_h:'Seedimisprobleemid', p2_t:'Puhitus, raskus, ebamugavus pärast söömist.',
-    p3_h:'Liigne kaal', p3_t:'Dieedid ei tööta, kaal tuleb tagasi.',
-    p4_h:'Nahk ja välimus', p4_t:'Lööbed, tuhmid juuksed — keha annab märku.',
-    p5_h:'Kaos toitumises', p5_t:'Ei tea mida süüa, loed vastuolulisi nõuandeid.',
-    res_tag:'Mida saate', res_h2:'Reaalsed muutused,<br>mida tunned',
-    r1_h:'Energia hommikust õhtuni', r1_t:'Ärkad puhanuna, oled produktiivne terve päev.',
-    r2_h:'Mugav kaalulangetamine', r2_t:'Ilma nälja ja rangete piiranguteta.',
-    r3_h:'Kergus kehas', r3_t:'Puhitus kaob. Seedimine töötab hästi.',
-    r4_h:'Toitumissüsteem kogu eluks', r4_t:'Toitumine muutub naudinguks.',
-    about_tag:'Minust', about_h2:'Tere, mina olen Julia',
+    p1_h:'Pidev väsimus',p1_t:'Ärkad katki, lõunaks pole enam jõudu.',
+    p2_h:'Seedimisprobleemid',p2_t:'Puhitus, raskus, ebamugavus pärast söömist.',
+    p3_h:'Liigne kaal',p3_t:'Dieedid ei tööta, kaal tuleb tagasi.',
+    p4_h:'Nahk ja välimus',p4_t:'Lööbed, tuhmid juuksed — keha annab märku.',
+    p5_h:'Kaos toitumises',p5_t:'Ei tea mida süüa, loed vastuolulisi nõuandeid.',
+    res_tag:'Mida saate',res_h2:'Reaalsed muutused,<br>mida tunned',
+    r1_h:'Energia hommikust õhtuni',r1_t:'Ärkad puhanuna, oled produktiivne terve päev.',
+    r2_h:'Mugav kaalulangetamine',r2_t:'Ilma nälja ja rangete piiranguteta.',
+    r3_h:'Kergus kehas',r3_t:'Puhitus kaob.',
+    r4_h:'Toitumissüsteem kogu eluks',r4_t:'Toitumine muutub naudinguks.',
+    about_tag:'Minust',about_h2:'Tere, mina olen Julia',
     about_p1:'Olen toitumisnõustaja ja usun, et tervislik toitumine ei tähenda piiranguid.',
     about_p2:'Mõni aasta tagasi käisin ise läbi kroonilise väsimuse ja lõpmatute dieedikatsete.',
-    about_p3:'Nüüd aitan inimestel oma toitumises selgusele jõuda ilma stressi ja enesevägivallata.',
-    cred1:'Toitumisnõustaja diplom', cred2:'Rahvusvahelised sertifikaadid', cred3:'100+ klienti', cred4:'Kogemus üle 3 aasta',
-    gal_tag:'Tulemused', gal_h2:'Fotod ja<br>tulemused',
-    gal_sub:'Klõpsake mis tahes fotol avamiseks.',
-    how_tag:'Kuidas töö käib', how_h2:'Lihtsalt, selgelt,<br>ilma stressita',
-    how_sub:'Ei maratone ega rangeid plaane. Süsteemne töö teie tempos.',
-    s1_h:'Analüüs ja tutvumine', s1_t:'Täidad ankeedi, räägid endast.',
-    s2_h:'Analüüs ja plaan', s2_t:'Analüüsin su toitumist ja koostan isiklikud soovitused.',
-    s3_h:'Loogika selgitamine', s3_t:'Räägin mitte ainult "mida teha", vaid "miks".',
-    s4_h:'Saatmine', s4_t:'Olen kõrval — vastan küsimustele iga päev.',
-    pack_tag:'Programmid', pack_h2:'Vali oma<br>töövorm',
-    pack_sub:'Iga programm on isiklik lähenemine, mitte mall.',
-    pk1_h:'Konsultatsioon', pk1_d:'Ühekordne kohtumine konkreetse tegevusplaaniga.',
-    pk1_f1:'Toitumise ja eluviisi analüüs', pk1_f2:'Isiklikud soovitused',
-    pk1_f3:'Vastused teie küsimustele', pk1_f4:'Kokkuvõte pärast kohtumist',
-    pk2_badge:'Populaarne valik', pk2_h:'Saatmine',
-    pk2_d:'Töötame koos 1–3 kuud. Olen kõrval igas etapis.',
-    pk2_f1:'Täielik toitumisanalüüs', pk2_f2:'Isiklik toitumisplaan',
-    pk2_f3:'Iganädalased kõned', pk2_f4:'Tugi sõnumirakenduses',
-    pk2_f5:'Plaani korrigeerimine', pk2_f6:'Iga sammu selgitamine',
-    pk3_h:'VIP', pk3_d:'Maksimaalne süvenemine parima tulemuse saavutamiseks.',
-    pk3_f1:'Kõik "Saatmise" paketist', pk3_f2:'Prioriteetne ühendus 24/7',
-    pk3_f3:'Analüüside tõlgendamine', pk3_f4:'Menüü ja retseptid teie jaoks', pk3_f5:'Spordirežiimi analüüs',
-    pk_learn:'Lisateave', pk_write:'Kirjuta ja uuri hinda',
-    faq_tag:'Küsimused ja vastused', faq_h2:'Korduma<br>kippuvad',
-    faq_sub:'Siin vastasin kõige sagedamatele küsimustele.',
-    faq1_q:'Kas sobib, kui ma pole Eestis?', faq1_a:'Jah! Töötan täielikult veebis.',
-    faq2_q:'Kui kaua programm kestab?', faq2_a:'Konsultatsioon — 1–1,5 tundi. Saatmine — 1–3 kuud.',
-    faq3_q:'Kas on rangeid piiranguid?', faq3_a:'Ei. Keelatud toiduained puuduvad.',
-    faq4_q:'Kas pean enne analüüse tegema?', faq4_a:'Pole kohustuslik, aga aitab.',
-    faq5_q:'Kuidas alustada?', faq5_a:'Kirjuta mulle Instagramis. Esimene tutvumine tasuta.',
-    faq6_q:'Palju maksab?', faq6_a:'Hind sõltub formaadist. Kirjuta — arutame.',
-    rev_tag:'Reaalsed arvustused', rev_h2:'Mida kliendid<br>ütlevad',
-    rev_sub:'Päriselt inimestelt pärit arvustused.',
-    rf_title:'Jäta oma arvustus', rf_sub:'Arvustus avaldatakse pärast kontrolli.',
-    rf_name_label:'Sinu nimi', rf_program_label:'Programm',
-    rf_p1:'Konsultatsioon', rf_p2:'Saatmine', rf_p3:'VIP',
-    rf_rating_label:'Hinne', rf_text_label:'Sinu arvustus',
-    rf_result_label:'Sinu tulemus (lühidalt)',
-    rf_submit:'Saada arvustus', rf_note:'Arvustus avaldatakse pärast kontrolli',
-    rf_success_title:'Tänan teid arvustuse eest!',
-    rf_success_sub:'See ilmub saidil pärast kontrolli — tavaliselt 24 tunni jooksul.',
-    adv_tag:'Miks minuga', adv_h2:'Lähenemine, mis<br>päriselt töötab',
-    adv1_h:'Selgitan, ei dikteeri', adv1_t:'Mõistad soovituste loogikat.',
-    adv2_h:'Tugi igal sammul', adv2_t:'Olen kõrval küsimustes ja kahtlustes.',
-    adv3_h:'Ilma surve ja dieetideta', adv3_t:'Töötame sinu tempos.',
-    adv4_h:'Tulemus, mis jääb', adv4_t:'Harjumuste süsteem kogu eluks.',
-    cta_tag:'Esimene samm', cta_h2:'Valmis alustama?',
-    cta_sub:'Kirjuta mulle — arutame. Esimene tutvumine on alati tasuta.',
-    cta_btn:'Kirjuta Instagramis',
-    footer_copy:'Toitumisnõustaja, Eesti',
-    no_reviews:'Kinnitatud arvustusi pole veel.',
-    pending_label:'Kontrollimisel', approved_label:'Avaldatud',
-    btn_approve:'Kinnita', btn_delete:'Kustuta',
-    admin_no_reviews:'Arvustusi pole.'
+    about_p3:'Nüüd aitan inimestel oma toitumises selgusele jõuda ilma stressita.',
+    cred1:'Toitumisnõustaja diplom',cred2:'Rahvusvahelised sertifikaadid',cred3:'100+ klienti',cred4:'Kogemus üle 3 aasta',
+    gal_tag:'Tulemused',gal_h2:'Fotod ja tulemused',gal_sub:'Klõpsake fotol avamiseks.',
+    how_tag:'Kuidas töö käib',how_h2:'Lihtsalt, selgelt,<br>ilma stressita',
+    how_sub:'Ei maratone ega rangeid plaane.',
+    s1_h:'Analüüs ja tutvumine',s1_t:'Täidad ankeedi, räägid endast.',
+    s2_h:'Analüüs ja plaan',s2_t:'Koostan isiklikud soovitused.',
+    s3_h:'Loogika selgitamine',s3_t:'Räägin miks, mitte ainult mida teha.',
+    s4_h:'Saatmine',s4_t:'Olen kõrval iga päev.',
+    pack_tag:'Programmid',pack_h2:'Vali oma<br>töövorm',pack_sub:'Iga programm on isiklik lähenemine.',
+    pk1_h:'Konsultatsioon',pk1_d:'Ühekordne kohtumine konkreetse plaaniga.',
+    pk1_f1:'Toitumise analüüs',pk1_f2:'Isiklikud soovitused',
+    pk1_f3:'Vastused küsimustele',pk1_f4:'Kokkuvõte',
+    pk2_badge:'Populaarne valik',pk2_h:'Saatmine',pk2_d:'1–3 kuud koos.',
+    pk2_f1:'Täielik analüüs',pk2_f2:'Isiklik plaan',pk2_f3:'Iganädalased kõned',
+    pk2_f4:'Tugi sõnumirakenduses',pk2_f5:'Plaani korrigeerimine',pk2_f6:'Iga sammu selgitamine',
+    pk3_h:'VIP',pk3_d:'Maksimaalne süvenemine.',
+    pk3_f1:'Kõik "Saatmise" paketist',pk3_f2:'Prioriteetne ühendus 24/7',
+    pk3_f3:'Analüüside tõlgendamine',pk3_f4:'Menüü ja retseptid',pk3_f5:'Spordirežiimi analüüs',
+    pk_learn:'Lisateave',pk_write:'Kirjuta ja uuri hinda',
+    faq_tag:'K&V',faq_h2:'Korduma<br>kippuvad',faq_sub:'Siin vastasin sagedamatele küsimustele.',
+    faq1_q:'Kas sobib, kui ma pole Eestis?',faq1_a:'Jah! Töötan täielikult veebis.',
+    faq2_q:'Kui kaua programm kestab?',faq2_a:'Konsultatsioon 1–1,5 tundi. Saatmine 1–3 kuud.',
+    faq3_q:'Kas on rangeid piiranguid?',faq3_a:'Ei. Keelatud toiduained puuduvad.',
+    faq4_q:'Kas pean analüüse tegema?',faq4_a:'Pole kohustuslik, aga aitab.',
+    faq5_q:'Kuidas alustada?',faq5_a:'Kirjuta Instagramis. Esimene tutvumine tasuta.',
+    faq6_q:'Palju maksab?',faq6_a:'Hind sõltub formaadist. Kirjuta — arutame.',
+    rev_tag:'Reaalsed arvustused',rev_h2:'Mida kliendid<br>ütlevad',rev_sub:'Päriselt inimestelt.',
+    rf_title:'Jäta arvustus',rf_sub:'Avaldatakse pärast kontrolli.',
+    rf_name_label:'Sinu nimi',rf_program_label:'Programm',
+    rf_p1:'Konsultatsioon',rf_p2:'Saatmine',rf_p3:'VIP',
+    rf_rating_label:'Hinne',rf_text_label:'Sinu arvustus',rf_result_label:'Tulemus lühidalt',
+    rf_submit:'Saada',rf_note:'Avaldatakse pärast kontrolli',
+    rf_success_title:'Tänan arvustuse eest!',rf_success_sub:'Ilmub pärast kontrolli.',
+    adv_tag:'Miks minuga',adv_h2:'Lähenemine, mis<br>töötab',
+    adv1_h:'Selgitan, ei dikteeri',adv1_t:'Mõistad soovituste loogikat.',
+    adv2_h:'Tugi igal sammul',adv2_t:'Olen kõrval.',
+    adv3_h:'Ilma surve ja dieetideta',adv3_t:'Töötame sinu tempos.',
+    adv4_h:'Tulemus, mis jääb',adv4_t:'Harjumuste süsteem kogu eluks.',
+    cta_tag:'Esimene samm',cta_h2:'Valmis alustama?',
+    cta_sub:'Kirjuta mulle. Esimene tutvumine tasuta.',
+    cta_btn:'Kirjuta Instagramis',footer_copy:'Toitumisnõustaja, Eesti',
+    no_reviews:'Kinnitatud arvustusi pole.',pending_label:'Kontrollimisel',
+    approved_label:'Avaldatud',btn_approve:'Kinnita',btn_delete:'Kustuta',admin_no_reviews:'Arvustusi pole.'
   },
-  en: {
-    nav_logo:'Julia Petrova', nav_for_whom:"Who it's for", nav_about:'About',
-    nav_how:'How we work', nav_packages:'Programs', nav_reviews:'Reviews',
-    nav_faq:'FAQ', nav_cta:'Contact',
+  en:{
+    nav_logo:'Julia Petrov',nav_for_whom:"Who it's for",nav_about:'About',
+    nav_how:'How we work',nav_packages:'Programs',nav_reviews:'Reviews',
+    nav_faq:'FAQ',nav_cta:'Contact',
     hero_eyebrow:'Nutritionist · Gentle approach · Estonia',
     hero_h1:'Nutrition that<br><em>works for you</em>',
-    hero_sub:"I restore energy, improve wellbeing and build a comfortable nutrition system — without rigid diets or self-pressure.",
-    hero_cta1:'Write on Instagram', hero_cta2:'View programs',
+    hero_sub:"I restore energy and build a comfortable nutrition system — without rigid diets.",
+    hero_cta1:'Write on Instagram',hero_cta2:'View programs',
     hero_stat:'clients restored<br>energy and lightness',
-    foto_hint:'Expert photo<br>800 × 1000 px',
-    foto_result_hint:'Before/after photo<br>600×800 px<br><br>🖱 Click to upload',
-    foto_about_hint:'Live expert photo<br>700 × 840 px<br><br>🖱 Click to upload',
-    m1:'Personal nutrition plan', m2:'No rigid diets', m3:'Gut health work',
-    m4:'Weight management', m5:'Energy & vitality', m6:'Online support',
-    prob_tag:'Do you recognise this?', prob_h2:'When something<br>goes wrong',
-    prob_sub:"If even one of these points resonates — you're in the right place.",
-    p1_h:'Constant fatigue', p1_t:"You wake up exhausted, by noon you have no energy.",
-    p2_h:'Digestive issues', p2_t:'Bloating, heaviness, discomfort after eating.',
-    p3_h:'Excess weight', p3_t:"Diets don't work, weight comes back.",
-    p4_h:'Skin & appearance', p4_t:"Breakouts, dullness — your body is telling you something.",
-    p5_h:'Nutrition chaos', p5_t:"You don't know what to eat and feel lost.",
-    res_tag:"What you'll get", res_h2:'Real changes<br>you\'ll feel',
-    r1_h:'Energy from morning to evening', r1_t:'You wake up rested, productive all day.',
-    r2_h:'Comfortable weight loss', r2_t:'No hunger, no slip-ups, no rigid restrictions.',
-    r3_h:'Lightness in the body', r3_t:'Bloating disappears. Digestion works like clockwork.',
-    r4_h:'A nutrition system for life', r4_t:'Nutrition becomes a pleasure, not stress.',
-    about_tag:'About me', about_h2:"Hi, I'm Julia",
-    about_p1:"I'm a nutritionist and I believe that healthy eating isn't about restrictions.",
-    about_p2:'A few years ago I went through chronic fatigue and endless diet experiments.',
-    about_p3:"Now I help people figure out their nutrition without stress. I explain why — not just what to do.",
-    cred1:'Nutritionist diploma', cred2:'International certificates', cred3:'100+ clients', cred4:'3+ years experience',
-    gal_tag:'Results', gal_h2:'Photos &<br>results',
-    gal_sub:'Click any photo to open. Admin can change photos via the panel.',
-    how_tag:'How the work goes', how_h2:'Simple, clear,<br>without stress',
-    how_sub:"No marathons or rigid plans. Systematic work at your pace.",
-    s1_h:'Analysis & getting to know you', s1_t:'You fill out a questionnaire and tell me about yourself.',
-    s2_h:'Breakdown & plan', s2_t:'I analyse your diet and create personal recommendations.',
-    s3_h:'Explaining the logic', s3_t:"I tell you not just 'what to do' but 'why'.",
-    s4_h:'Ongoing support', s4_t:"I'm here — answering questions, adjusting the plan every day.",
-    pack_tag:'Programs', pack_h2:'Choose your<br>format',
-    pack_sub:'Every program is a personal approach, not a template.',
-    pk1_h:'Consultation', pk1_d:'A one-time session for clarity and a concrete action plan.',
-    pk1_f1:'Diet and lifestyle analysis', pk1_f2:'Personal recommendations',
-    pk1_f3:'Answers to your questions', pk1_f4:'Summary after the session',
-    pk2_badge:'Most popular', pk2_h:'Mentorship',
-    pk2_d:"We work together for 1–3 months. I'm with you every step.",
-    pk2_f1:'Full diet analysis', pk2_f2:'Personal nutrition plan',
-    pk2_f3:'Weekly calls', pk2_f4:'Messenger support',
-    pk2_f5:'Plan adjustments along the way', pk2_f6:'Explanation of every step',
-    pk3_h:'VIP', pk3_d:'Maximum depth and individual approach for the best results.',
-    pk3_f1:'Everything in "Mentorship"', pk3_f2:'Priority contact 24/7',
-    pk3_f3:'Test result interpretation', pk3_f4:'Menu and recipes for you', pk3_f5:'Sport routine analysis',
-    pk_learn:'Learn more', pk_write:'Write and ask about price',
-    faq_tag:'Q&A', faq_h2:'Frequently<br>asked',
-    faq_sub:"I've answered the most common questions here.",
-    faq1_q:"Does it work if I'm not in Estonia?", faq1_a:"Yes! I work fully online.",
-    faq2_q:'How long does the program last?', faq2_a:'Consultation — 1–1.5 hours. Mentorship — 1 to 3 months.',
-    faq3_q:'Will there be strict restrictions?', faq3_a:'No. No forbidden foods and no rigid diets.',
-    faq4_q:'Do I need to take tests before starting?', faq4_a:"Tests aren't required but are very helpful.",
-    faq5_q:'How do I start?', faq5_a:'Write to me on Instagram. First meeting is always free.',
-    faq6_q:'How much do your services cost?', faq6_a:"Write to me — we'll discuss your request.",
-    rev_tag:'Real reviews', rev_h2:'What clients<br>say',
-    rev_sub:'Genuine reviews from real people. You can leave yours — it will appear after review.',
-    rf_title:'Leave your review', rf_sub:'Your review will be published after moderation.',
-    rf_name_label:'Your name', rf_program_label:'Program',
-    rf_p1:'Consultation', rf_p2:'Mentorship', rf_p3:'VIP',
-    rf_rating_label:'Rating', rf_text_label:'Your review',
-    rf_result_label:'Your result (briefly)',
-    rf_submit:'Submit review', rf_note:'Review will be published after moderation',
-    rf_success_title:'Thank you for your review!',
-    rf_success_sub:'It will appear on the site after moderation — usually within 24 hours.',
-    adv_tag:'Why me', adv_h2:'An approach that<br>truly works',
-    adv1_h:'I explain, not dictate', adv1_t:'You understand the logic and make conscious choices.',
-    adv2_h:'Support at every step', adv2_t:"I'm here in questions, doubts and small victories.",
-    adv3_h:'No pressure or diets', adv3_t:'We work at your pace with your real capabilities.',
-    adv4_h:'Results that last', adv4_t:'Not a temporary diet, but a system of habits for life.',
-    cta_tag:'First step', cta_h2:'Ready to start?',
-    cta_sub:"Write to me — we'll find the right format. First meeting is always free.",
-    cta_btn:'Write on Instagram',
-    footer_copy:'Nutritionist, Estonia',
-    no_reviews:'No approved reviews yet.',
-    pending_label:'Pending', approved_label:'Published',
-    btn_approve:'Approve', btn_delete:'Delete',
-    admin_no_reviews:'No reviews.'
+    foto_result_hint:'Before/after photo<br>🖱 Click to upload',
+    foto_about_hint:'Expert photo<br>🖱 Click to upload',
+    m1:'Personal nutrition plan',m2:'No rigid diets',m3:'Gut health',
+    m4:'Weight management',m5:'Energy & vitality',m6:'Online support',
+    prob_tag:'Do you recognise this?',prob_h2:'When something<br>goes wrong',
+    prob_sub:"If even one of these resonates — you're in the right place.",
+    p1_h:'Constant fatigue',p1_t:'You wake up exhausted, by noon no energy.',
+    p2_h:'Digestive issues',p2_t:'Bloating, heaviness, discomfort after eating.',
+    p3_h:'Excess weight',p3_t:"Diets don't work, weight comes back.",
+    p4_h:'Skin & appearance',p4_t:'Breakouts, dullness — your body is telling you something.',
+    p5_h:'Nutrition chaos',p5_t:"You don't know what to eat.",
+    res_tag:"What you'll get",res_h2:"Real changes<br>you'll feel",
+    r1_h:'Energy all day',r1_t:'You wake up rested, productive all day.',
+    r2_h:'Comfortable weight loss',r2_t:'No hunger or rigid restrictions.',
+    r3_h:'Lightness in the body',r3_t:'Bloating disappears.',
+    r4_h:'A nutrition system for life',r4_t:'Nutrition becomes a pleasure.',
+    about_tag:'About me',about_h2:"Hi, I'm Julia",
+    about_p1:"I'm a nutritionist. Healthy eating isn't about restrictions.",
+    about_p2:'I went through chronic fatigue and endless diet experiments myself.',
+    about_p3:"Now I help people without stress. I explain why — not just what to do.",
+    cred1:'Nutritionist diploma',cred2:'International certificates',cred3:'100+ clients',cred4:'3+ years',
+    gal_tag:'Results',gal_h2:'Photos & results',gal_sub:'Click any photo to open.',
+    how_tag:'How it works',how_h2:'Simple, clear,<br>stress-free',
+    how_sub:'No marathons. Systematic work at your pace.',
+    s1_h:'Analysis & intro',s1_t:'You fill out a questionnaire.',
+    s2_h:'Plan',s2_t:'I create personal recommendations.',
+    s3_h:'Explaining why',s3_t:"I tell you 'why', not just 'what'.",
+    s4_h:'Support',s4_t:"I'm here every day.",
+    pack_tag:'Programs',pack_h2:'Choose your format',pack_sub:'Personal approach, not a template.',
+    pk1_h:'Consultation',pk1_d:'One-time session for a concrete action plan.',
+    pk1_f1:'Diet & lifestyle analysis',pk1_f2:'Personal recommendations',
+    pk1_f3:'Q&A',pk1_f4:'Session summary',
+    pk2_badge:'Most popular',pk2_h:'Mentorship',pk2_d:'1–3 months together.',
+    pk2_f1:'Full diet analysis',pk2_f2:'Personal nutrition plan',
+    pk2_f3:'Weekly calls',pk2_f4:'Messenger support',
+    pk2_f5:'Plan adjustments',pk2_f6:'Every step explained',
+    pk3_h:'VIP',pk3_d:'Maximum depth and individual approach.',
+    pk3_f1:'Everything in Mentorship',pk3_f2:'Priority contact 24/7',
+    pk3_f3:'Test interpretation',pk3_f4:'Custom menu & recipes',pk3_f5:'Sport routine analysis',
+    pk_learn:'Learn more',pk_write:'Write & ask price',
+    faq_tag:'FAQ',faq_h2:'Frequently<br>asked',faq_sub:"I've answered the most common questions.",
+    faq1_q:"Does it work if I'm not in Estonia?",faq1_a:'Yes! I work fully online.',
+    faq2_q:'How long is the program?',faq2_a:'Consultation 1–1.5h. Mentorship 1–3 months.',
+    faq3_q:'Will there be strict restrictions?',faq3_a:'No. No forbidden foods.',
+    faq4_q:'Do I need tests first?',faq4_a:"Not required but helpful.",
+    faq5_q:'How do I start?',faq5_a:'Write on Instagram. First meeting is free.',
+    faq6_q:'How much does it cost?',faq6_a:"Write to me — we'll discuss.",
+    rev_tag:'Real reviews',rev_h2:'What clients<br>say',rev_sub:'Genuine reviews from real people.',
+    rf_title:'Leave a review',rf_sub:'Published after moderation.',
+    rf_name_label:'Your name',rf_program_label:'Program',
+    rf_p1:'Consultation',rf_p2:'Mentorship',rf_p3:'VIP',
+    rf_rating_label:'Rating',rf_text_label:'Your review',rf_result_label:'Your result (briefly)',
+    rf_submit:'Submit',rf_note:'Published after moderation',
+    rf_success_title:'Thank you!',rf_success_sub:'Will appear after moderation.',
+    adv_tag:'Why me',adv_h2:'An approach that<br>truly works',
+    adv1_h:'I explain, not dictate',adv1_t:'You understand the logic.',
+    adv2_h:'Support at every step',adv2_t:"I'm here for questions and victories.",
+    adv3_h:'No pressure',adv3_t:'We work at your pace.',
+    adv4_h:'Lasting results',adv4_t:'Habits for life, not a temporary diet.',
+    cta_tag:'First step',cta_h2:'Ready to start?',
+    cta_sub:"Write to me. First meeting is always free.",
+    cta_btn:'Write on Instagram',footer_copy:'Nutritionist, Estonia',
+    no_reviews:'No approved reviews yet.',pending_label:'Pending',
+    approved_label:'Published',btn_approve:'Approve',btn_delete:'Delete',admin_no_reviews:'No reviews.'
   }
 };
 
-// ─── LANG ───
-let currentLang = 'ru';
-function setLang(lang) {
-  currentLang = lang;
-  document.querySelectorAll('.lang-btn').forEach(b => b.classList.toggle('active', b.textContent === lang.toUpperCase()));
-  document.querySelectorAll('[data-t]').forEach(el => {
-    const key = el.getAttribute('data-t');
-    const val = T[lang][key];
-    if(val !== undefined) el.innerHTML = val;
+let currentLang='ru';
+function setLang(lang){
+  currentLang=lang;
+  document.querySelectorAll('.lang-btn').forEach(b=>b.classList.toggle('active',b.textContent===lang.toUpperCase()));
+  document.querySelectorAll('[data-t]').forEach(el=>{
+    const v=T[lang][el.getAttribute('data-t')];
+    if(v!==undefined)el.innerHTML=v;
   });
-  renderReviews();
-  renderGallery();
+  renderReviews();renderGallery();
 }
 
-// ─── INTRO ───
-setTimeout(() => document.getElementById('intro-overlay').classList.add('hidden'), 2400);
+// INTRO
+setTimeout(()=>document.getElementById('intro-overlay').classList.add('hidden'),3000);
 
-// ─── NAV BURGER ───
-document.getElementById('burger').addEventListener('click', () => {
-  document.getElementById('mobile-menu').classList.toggle('open');
-});
-document.querySelectorAll('.mobile-menu a').forEach(a => {
-  a.addEventListener('click', () => document.getElementById('mobile-menu').classList.remove('open'));
-});
+// NAV
+document.getElementById('burger').addEventListener('click',()=>document.getElementById('mobile-menu').classList.toggle('open'));
+document.querySelectorAll('.mobile-menu a').forEach(a=>a.addEventListener('click',()=>document.getElementById('mobile-menu').classList.remove('open')));
 
-// ─── SCROLL REVEAL ───
-const observer = new IntersectionObserver(entries => {
-  entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); });
-}, { threshold: 0.1 });
-document.querySelectorAll('.reveal,.reveal-left,.reveal-right,.stagger').forEach(el => observer.observe(el));
+// REVEAL
+const obs=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible')}),{threshold:0.1});
+document.querySelectorAll('.reveal,.reveal-left,.reveal-right,.stagger').forEach(el=>obs.observe(el));
 
-// ─── FAQ ───
-function toggleFaq(q) {
-  const item = q.parentElement;
-  const isOpen = item.classList.contains('open');
-  document.querySelectorAll('.faq-item.open').forEach(i => i.classList.remove('open'));
-  if(!isOpen) item.classList.add('open');
+// FAQ
+function toggleFaq(q){
+  const item=q.parentElement,isOpen=item.classList.contains('open');
+  document.querySelectorAll('.faq-item.open').forEach(i=>i.classList.remove('open'));
+  if(!isOpen)item.classList.add('open');
 }
 
-// ─── PHOTO SLOTS (hero, results, about) ───
-function loadPhotoSlot(slot, input) {
-  const file = input.files[0];
-  if(!file) return;
-  const reader = new FileReader();
-  reader.onload = e => {
-    const data = e.target.result;
-    localStorage.setItem('photo_' + slot, data);
-    applyPhotoSlot(slot, data);
+// PHOTO SLOTS
+function loadPhotoSlot(slot,input){
+  const file=input.files[0];if(!file)return;
+  const reader=new FileReader();
+  reader.onload=e=>{
+    localStorage.setItem('photo_'+slot,e.target.result);
+    applyPhotoSlot(slot,e.target.result);
   };
   reader.readAsDataURL(file);
 }
-
-function applyPhotoSlot(slot, data) {
-  const img = document.getElementById(slot + 'Img');
-  const placeholder = document.getElementById(slot + 'Placeholder');
-  if(img && placeholder) {
-    img.src = data;
-    img.style.display = 'block';
-    placeholder.style.display = 'none';
-  }
+function applyPhotoSlot(slot,data){
+  const img=document.getElementById(slot+'Img');
+  const ph=document.getElementById(slot+'Placeholder');
+  if(img&&ph){img.src=data;img.style.display='block';ph.style.display='none';}
 }
-
-function loadSavedPhotos() {
-  ['heroFoto','resultsFoto','aboutFoto'].forEach(slot => {
-    const data = localStorage.getItem('photo_' + slot);
-    if(data) applyPhotoSlot(slot, data);
+function loadSavedPhotos(){
+  ['heroFoto','resultsFoto','aboutFoto'].forEach(slot=>{
+    const d=localStorage.getItem('photo_'+slot);
+    if(d)applyPhotoSlot(slot,d);
   });
 }
 
-// ─── GALLERY ───
-const GALLERY_COUNT = 7;
-const STOCK_PHOTOS = [
+// GALLERY
+const GALLERY_COUNT=7;
+const STOCK=[
   'https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=600&q=80',
   'https://images.unsplash.com/photo-1490645935967-10de6ba17061?w=600&q=80',
   'https://images.unsplash.com/photo-1498837167922-ddd27525d352?w=600&q=80',
@@ -1654,348 +1460,219 @@ const STOCK_PHOTOS = [
   'https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?w=600&q=80',
   'https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?w=600&q=80'
 ];
-
-function getGalleryPhotos() {
-  const saved = [];
-  for(let i = 0; i < GALLERY_COUNT; i++) {
-    const d = localStorage.getItem('gallery_' + i);
-    saved.push(d || STOCK_PHOTOS[i]);
-  }
-  return saved;
+function getGalleryPhotos(){
+  return Array.from({length:GALLERY_COUNT},(_,i)=>localStorage.getItem('gallery_'+i)||STOCK[i]);
 }
-
-let lbPhotos = [];
-let lbIndex = 0;
-
-function renderGallery() {
-  const grid = document.getElementById('galleryGrid');
-  if(!grid) return;
-  const photos = getGalleryPhotos();
-  lbPhotos = photos;
-  grid.innerHTML = photos.map((src, i) => `
+let lbPhotos=[],lbIndex=0;
+function renderGallery(){
+  const grid=document.getElementById('galleryGrid');if(!grid)return;
+  lbPhotos=getGalleryPhotos();
+  grid.innerHTML=lbPhotos.map((src,i)=>`
     <div class="gallery-item" onclick="openLightbox(${i})">
       <img src="${src}" alt="Фото ${i+1}" loading="lazy"/>
-      <div class="gallery-overlay">
-        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-      </div>
-    </div>
-  `).join('');
+      <div class="gallery-overlay"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></div>
+    </div>`).join('');
 }
-
-function openLightbox(i) {
-  lbIndex = i;
-  document.getElementById('lb-img').src = lbPhotos[i];
-  document.getElementById('lightbox').classList.add('open');
-  document.body.style.overflow = 'hidden';
-}
-function closeLightbox() {
-  document.getElementById('lightbox').classList.remove('open');
-  document.body.style.overflow = '';
-}
-function lbPrev() { lbIndex = (lbIndex - 1 + lbPhotos.length) % lbPhotos.length; document.getElementById('lb-img').src = lbPhotos[lbIndex]; }
-function lbNext() { lbIndex = (lbIndex + 1) % lbPhotos.length; document.getElementById('lb-img').src = lbPhotos[lbIndex]; }
-document.getElementById('lightbox').addEventListener('click', function(e) { if(e.target === this) closeLightbox(); });
-document.addEventListener('keydown', e => {
-  if(document.getElementById('lightbox').classList.contains('open')) {
-    if(e.key === 'Escape') closeLightbox();
-    if(e.key === 'ArrowLeft') lbPrev();
-    if(e.key === 'ArrowRight') lbNext();
+function openLightbox(i){lbIndex=i;document.getElementById('lb-img').src=lbPhotos[i];document.getElementById('lightbox').classList.add('open');document.body.style.overflow='hidden';}
+function closeLightbox(){document.getElementById('lightbox').classList.remove('open');document.body.style.overflow='';}
+function lbPrev(){lbIndex=(lbIndex-1+lbPhotos.length)%lbPhotos.length;document.getElementById('lb-img').src=lbPhotos[lbIndex];}
+function lbNext(){lbIndex=(lbIndex+1)%lbPhotos.length;document.getElementById('lb-img').src=lbPhotos[lbIndex];}
+document.getElementById('lightbox').addEventListener('click',function(e){if(e.target===this)closeLightbox();});
+document.addEventListener('keydown',e=>{
+  if(document.getElementById('lightbox').classList.contains('open')){
+    if(e.key==='Escape')closeLightbox();
+    if(e.key==='ArrowLeft')lbPrev();
+    if(e.key==='ArrowRight')lbNext();
   }
 });
 
-// ─── STARS (review form) ───
-let reviewRating = 0;
-function setStar(n) {
-  reviewRating = n;
-  document.querySelectorAll('#starSelect .star-btn').forEach((b, i) => {
-    b.classList.toggle('active', i < n);
+// STARS
+let reviewRating=0;
+function setStar(n){
+  reviewRating=n;
+  document.querySelectorAll('#starSelect .star-btn').forEach((b,i)=>b.classList.toggle('active',i<n));
+}
+
+// REVIEW PHOTOS
+let uploadedPhotos=[];
+function previewUploadPhotos(input){
+  const files=Array.from(input.files).slice(0,5);
+  uploadedPhotos=[];
+  const prev=document.getElementById('uploadPreview');prev.innerHTML='';
+  files.forEach((f,idx)=>{
+    const r=new FileReader();
+    r.onload=e=>{
+      uploadedPhotos[idx]=e.target.result;
+      const t=document.createElement('div');t.className='upload-thumb';
+      t.innerHTML=`<img src="${e.target.result}"/><button class="upload-thumb-del" onclick="removeThumb(${idx})">×</button>`;
+      prev.appendChild(t);
+    };r.readAsDataURL(f);
   });
 }
+function removeThumb(idx){uploadedPhotos[idx]=null;document.querySelectorAll('.upload-thumb')[idx]?.remove();}
 
-// ─── REVIEW PHOTOS PREVIEW ───
-let uploadedPhotoDataURLs = [];
-function previewUploadPhotos(input) {
-  const files = Array.from(input.files).slice(0, 5);
-  uploadedPhotoDataURLs = [];
-  const preview = document.getElementById('uploadPreview');
-  preview.innerHTML = '';
-  files.forEach((file, idx) => {
-    const reader = new FileReader();
-    reader.onload = e => {
-      uploadedPhotoDataURLs[idx] = e.target.result;
-      const thumb = document.createElement('div');
-      thumb.className = 'upload-thumb';
-      thumb.innerHTML = `<img src="${e.target.result}"/><button class="upload-thumb-del" onclick="removeUploadThumb(${idx})">×</button>`;
-      preview.appendChild(thumb);
-    };
-    reader.readAsDataURL(file);
-  });
-}
-function removeUploadThumb(idx) {
-  uploadedPhotoDataURLs[idx] = null;
-  const preview = document.getElementById('uploadPreview');
-  const thumbs = preview.querySelectorAll('.upload-thumb');
-  if(thumbs[idx]) thumbs[idx].remove();
-}
+// REVIEWS
+const ADMIN_PASS='julia2025';
+function getReviews(){try{return JSON.parse(localStorage.getItem('yulia_reviews')||'[]');}catch{return[];}}
+function saveReviews(r){try{localStorage.setItem('yulia_reviews',JSON.stringify(r));}catch{}}
 
-// ─── REVIEWS STORAGE ───
-const ADMIN_PASSWORD = 'julia2025';
-
-function getReviews() {
-  try { return JSON.parse(localStorage.getItem('yulia_reviews') || '[]'); } catch { return []; }
-}
-function saveReviews(r) {
-  try { localStorage.setItem('yulia_reviews', JSON.stringify(r)); } catch {} 
-}
-
-function submitReview() {
-  const name = document.getElementById('rfName').value.trim();
-  const text = document.getElementById('rfText').value.trim();
-  const program = document.getElementById('rfProgram').value;
-  const result = document.getElementById('rfResult').value.trim();
-  if(!name || !text) { alert('Пожалуйста, заполните имя и текст отзыва.'); return; }
-  if(!reviewRating) { alert('Пожалуйста, поставьте оценку.'); return; }
-  const reviews = getReviews();
+function submitReview(){
+  const name=document.getElementById('rfName').value.trim();
+  const text=document.getElementById('rfText').value.trim();
+  if(!name||!text){alert('Пожалуйста, заполните имя и текст отзыва.');return;}
+  if(!reviewRating){alert('Пожалуйста, поставьте оценку.');return;}
+  const reviews=getReviews();
   reviews.push({
-    id: Date.now(),
-    name, text, program, result,
-    rating: reviewRating,
-    photos: uploadedPhotoDataURLs.filter(Boolean),
-    approved: false,
-    date: new Date().toLocaleDateString('ru-RU')
+    id:Date.now(),name,text,
+    program:document.getElementById('rfProgram').value,
+    result:document.getElementById('rfResult').value.trim(),
+    rating:reviewRating,
+    photos:uploadedPhotos.filter(Boolean),
+    approved:false,
+    date:new Date().toLocaleDateString('ru-RU')
   });
   saveReviews(reviews);
-  document.getElementById('rfName').value = '';
-  document.getElementById('rfText').value = '';
-  document.getElementById('rfResult').value = '';
-  document.getElementById('uploadPreview').innerHTML = '';
-  uploadedPhotoDataURLs = [];
-  setStar(0);
-  reviewRating = 0;
-  // confetti + success animation
+  document.getElementById('rfName').value='';
+  document.getElementById('rfText').value='';
+  document.getElementById('rfResult').value='';
+  document.getElementById('uploadPreview').innerHTML='';
+  uploadedPhotos=[];setStar(0);
   launchConfetti();
-  const suc = document.getElementById('review-success');
-  suc.classList.add('show');
-  setTimeout(() => suc.classList.remove('show'), 5000);
+  const s=document.getElementById('review-success');
+  s.classList.add('show');setTimeout(()=>s.classList.remove('show'),5000);
   renderReviews();
 }
 
-// ─── CONFETTI ───
-function launchConfetti() {
-  const canvas = document.getElementById('confetti-canvas');
-  const ctx = canvas.getContext('2d');
-  canvas.width = window.innerWidth;
-  canvas.height = window.innerHeight;
-  const pieces = Array.from({length: 80}, () => ({
-    x: Math.random() * canvas.width,
-    y: -20,
-    r: Math.random() * 6 + 3,
-    d: Math.random() * 80 + 20,
-    color: ['#C4955A','#D9C9B0','#8C6D4F','#F7F0E8','#B8956A'][Math.floor(Math.random()*5)],
-    tilt: Math.random() * 10 - 5,
-    tiltAngle: 0,
-    tiltSpeed: Math.random() * 0.1 + 0.05
+function launchConfetti(){
+  const c=document.getElementById('confetti-canvas'),ctx=c.getContext('2d');
+  c.width=window.innerWidth;c.height=window.innerHeight;
+  const p=Array.from({length:80},()=>({
+    x:Math.random()*c.width,y:-20,r:Math.random()*6+3,
+    color:['#6FA86A','#D0E2D0','#4A7C4E','#F6F3EE','#A8C9A5'][Math.floor(Math.random()*5)],
+    tilt:0,tiltAngle:0,tiltSpeed:Math.random()*.1+.05
   }));
-  let frame = 0;
-  function draw() {
-    ctx.clearRect(0,0,canvas.width,canvas.height);
-    pieces.forEach(p => {
-      ctx.beginPath();
-      ctx.lineWidth = p.r;
-      ctx.strokeStyle = p.color;
-      ctx.moveTo(p.x + p.tilt + p.r/3, p.y);
-      ctx.lineTo(p.x + p.tilt, p.y + p.tilt + p.r/3);
-      ctx.stroke();
-      p.y += Math.cos(frame/10) * 2 + 2;
-      p.tiltAngle += p.tiltSpeed;
-      p.tilt = Math.sin(p.tiltAngle) * 12;
-    });
-    frame++;
-    if(frame < 150) requestAnimationFrame(draw);
-    else ctx.clearRect(0,0,canvas.width,canvas.height);
-  }
-  draw();
+  let f=0;
+  (function draw(){
+    ctx.clearRect(0,0,c.width,c.height);
+    p.forEach(p=>{
+      ctx.beginPath();ctx.lineWidth=p.r;ctx.strokeStyle=p.color;
+      ctx.moveTo(p.x+p.tilt+p.r/3,p.y);ctx.lineTo(p.x+p.tilt,p.y+p.tilt+p.r/3);ctx.stroke();
+      p.y+=Math.cos(f/10)*2+2;p.tiltAngle+=p.tiltSpeed;p.tilt=Math.sin(p.tiltAngle)*12;
+    });f++;
+    if(f<150)requestAnimationFrame(draw);else ctx.clearRect(0,0,c.width,c.height);
+  })();
 }
 
-// ─── RENDER REVIEWS ───
-function starsHtml(n) {
-  return '<div class="review-stars-inner">' +
-    Array.from({length:5}, (_,i) => `<span class="r-star${i<n?' lit':''}>★</span>`).join('') +
-  '</div>';
+function starsHtml(n){
+  return '<div class="review-stars-inner">'+Array.from({length:5},(_,i)=>`<span class="r-star${i<n?' lit':''}">★</span>`).join('')+'</div>';
 }
 
-function renderReviews() {
-  const container = document.getElementById('reviewsContainer');
-  if(!container) return;
-  const reviews = getReviews().filter(r => r.approved);
-  if(!reviews.length) {
-    container.innerHTML = `<p style="color:var(--muted);font-style:italic;grid-column:1/-1">${T[currentLang]['no_reviews']}</p>`;
-    return;
-  }
-  container.innerHTML = reviews.map(r => `
+function renderReviews(){
+  const c=document.getElementById('reviewsContainer');if(!c)return;
+  const reviews=getReviews().filter(r=>r.approved);
+  if(!reviews.length){c.innerHTML=`<p style="color:var(--muted);font-style:italic;grid-column:1/-1">${T[currentLang].no_reviews}</p>`;return;}
+  c.innerHTML=reviews.map(r=>`
     <div class="review-card">
       <div class="review-stars">${starsHtml(r.rating)}</div>
       <div class="review-text">"${r.text}"</div>
       <div class="review-author">
         <div class="review-av">${r.name.charAt(0).toUpperCase()}</div>
-        <div class="review-info">
-          <strong>${r.name}</strong>
-          <span>${r.program} · ${r.date}</span>
-        </div>
+        <div class="review-info"><strong>${r.name}</strong><span>${r.program} · ${r.date}</span></div>
       </div>
-      ${r.result ? `<div class="review-tag">${r.result}</div>` : ''}
-      ${r.photos && r.photos.length ? `
-        <div class="review-photos">
-          ${r.photos.map((p,i) => `
-            <div class="review-photo-thumb" onclick="openLightboxSingle('${p}')">
-              <img src="${p}" alt="фото"/>
-            </div>
-          `).join('')}
-        </div>` : ''}
-    </div>
-  `).join('');
+      ${r.result?`<div class="review-tag">${r.result}</div>`:''}
+      ${r.photos&&r.photos.length?`<div class="review-photos">${r.photos.map(p=>`<div class="review-photo-thumb" onclick="openLightboxSingle('${p}')"><img src="${p}"/></div>`).join('')}</div>`:''}
+    </div>`).join('');
 }
 
-function openLightboxSingle(src) {
-  lbPhotos = [src]; lbIndex = 0;
-  document.getElementById('lb-img').src = src;
-  document.getElementById('lightbox').classList.add('open');
-  document.body.style.overflow = 'hidden';
+function openLightboxSingle(src){lbPhotos=[src];lbIndex=0;document.getElementById('lb-img').src=src;document.getElementById('lightbox').classList.add('open');document.body.style.overflow='hidden';}
+
+// ADMIN
+function openAdmin(){document.getElementById('admin-panel').classList.add('open');}
+function closeAdmin(){document.getElementById('admin-panel').classList.remove('open');}
+document.getElementById('admin-panel').addEventListener('click',function(e){if(e.target===this)closeAdmin();});
+
+function adminLogin(){
+  if(document.getElementById('adminPass').value===ADMIN_PASS){
+    document.getElementById('adminLoginArea').style.display='none';
+    document.getElementById('adminContent').style.display='block';
+    renderAdminReviews();renderPhotoManager();
+  }else alert('Неверный пароль');
 }
 
-// ─── ADMIN ───
-let adminLoggedIn = false;
-function openAdmin() { document.getElementById('admin-panel').classList.add('open'); }
-function closeAdmin() { document.getElementById('admin-panel').classList.remove('open'); }
-document.getElementById('admin-panel').addEventListener('click', function(e) {
-  if(e.target === this) closeAdmin();
-});
-
-function adminLogin() {
-  if(document.getElementById('adminPass').value === ADMIN_PASSWORD) {
-    adminLoggedIn = true;
-    document.getElementById('adminLoginArea').style.display = 'none';
-    document.getElementById('adminContent').style.display = 'block';
-    renderAdminReviews();
-    renderPhotoManager();
-  } else {
-    alert('Неверный пароль');
-  }
+function switchTab(tab,btn){
+  document.querySelectorAll('.admin-tab').forEach(b=>b.classList.remove('active'));btn.classList.add('active');
+  document.getElementById('adminTabReviews').style.display=tab==='reviews'?'block':'none';
+  document.getElementById('adminTabPhotos').style.display=tab==='photos'?'block':'none';
 }
 
-function switchTab(tab, btn) {
-  document.querySelectorAll('.admin-tab').forEach(b => b.classList.remove('active'));
-  btn.classList.add('active');
-  document.getElementById('adminTabReviews').style.display = tab === 'reviews' ? 'block' : 'none';
-  document.getElementById('adminTabPhotos').style.display = tab === 'photos' ? 'block' : 'none';
-}
-
-function renderAdminReviews() {
-  const reviews = getReviews();
-  const list = document.getElementById('adminReviewList');
-  if(!reviews.length) {
-    list.innerHTML = `<div class="admin-empty">${T[currentLang]['admin_no_reviews']}</div>`;
-    return;
-  }
-  list.innerHTML = reviews.map(r => `
-    <div class="admin-review-item" id="ar_${r.id}">
+function renderAdminReviews(){
+  const reviews=getReviews(),list=document.getElementById('adminReviewList');
+  if(!reviews.length){list.innerHTML=`<div class="admin-empty">${T[currentLang].admin_no_reviews}</div>`;return;}
+  list.innerHTML=reviews.map(r=>`
+    <div class="admin-review-item">
       <div class="admin-review-header">
         <span class="admin-review-name">${r.name}</span>
-        <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
-          <span>${starsHtml(r.rating)}</span>
-          <span class="${r.approved ? 'status-approved' : 'status-pending'}">
-            ${r.approved ? T[currentLang]['approved_label'] : T[currentLang]['pending_label']}
-          </span>
+        <div style="display:flex;gap:8px;align-items:center">
+          ${starsHtml(r.rating)}
+          <span class="${r.approved?'status-approved':'status-pending'}">${r.approved?T[currentLang].approved_label:T[currentLang].pending_label}</span>
           <span class="admin-review-date">${r.date}</span>
         </div>
       </div>
       <div class="admin-review-text">${r.text}</div>
-      ${r.result ? `<div style="font-size:13px;color:var(--accent);margin-bottom:8px">Результат: ${r.result}</div>` : ''}
-      ${r.photos && r.photos.length ? `<div style="display:flex;gap:6px;margin-bottom:10px;">${r.photos.map(p=>`<img src="${p}" style="width:48px;height:48px;object-fit:cover;border-radius:6px;border:1px solid var(--c3)">`).join('')}</div>` : ''}
+      ${r.result?`<div style="font-size:13px;color:var(--accent);margin-bottom:8px">${r.result}</div>`:''}
+      ${r.photos&&r.photos.length?`<div style="display:flex;gap:6px;margin-bottom:10px">${r.photos.map(p=>`<img src="${p}" style="width:48px;height:48px;object-fit:cover;border-radius:6px;border:1px solid var(--c3)">`).join('')}</div>`:''}
       <div class="admin-review-actions">
-        ${!r.approved ? `<button class="btn-approve" onclick="approveReview(${r.id})">${T[currentLang]['btn_approve']}</button>` : ''}
-        <button class="btn-delete" onclick="deleteReview(${r.id})">${T[currentLang]['btn_delete']}</button>
+        ${!r.approved?`<button class="btn-approve" onclick="approveReview(${r.id})">${T[currentLang].btn_approve}</button>`:''}
+        <button class="btn-delete" onclick="deleteReview(${r.id})">${T[currentLang].btn_delete}</button>
       </div>
-    </div>
-  `).join('');
+    </div>`).join('');
 }
 
-function approveReview(id) {
-  const reviews = getReviews();
-  const idx = reviews.findIndex(r => r.id === id);
-  if(idx > -1) { reviews[idx].approved = true; saveReviews(reviews); }
-  renderAdminReviews(); renderReviews();
-}
-function deleteReview(id) {
-  saveReviews(getReviews().filter(r => r.id !== id));
-  renderAdminReviews(); renderReviews();
-}
+function approveReview(id){const r=getReviews();const i=r.findIndex(x=>x.id===id);if(i>-1){r[i].approved=true;saveReviews(r);}renderAdminReviews();renderReviews();}
+function deleteReview(id){saveReviews(getReviews().filter(r=>r.id!==id));renderAdminReviews();renderReviews();}
 
-// ─── PHOTO MANAGER (admin) ───
-const PHOTO_SLOTS_CONFIG = [
-  { key: 'heroFoto', label: 'Герой' },
-  { key: 'resultsFoto', label: 'Результаты' },
-  { key: 'aboutFoto', label: 'Обо мне' },
-  ...Array.from({length: GALLERY_COUNT}, (_, i) => ({ key: `gallery_${i}`, label: `Галерея ${i+1}` }))
+const SLOT_CONFIG=[
+  {key:'heroFoto',label:'Герой'},{key:'resultsFoto',label:'Результаты'},{key:'aboutFoto',label:'Обо мне'},
+  ...Array.from({length:GALLERY_COUNT},(_,i)=>({key:`gallery_${i}`,label:`Галерея ${i+1}`}))
 ];
 
-function renderPhotoManager() {
-  const mgr = document.getElementById('photoManager');
-  mgr.innerHTML = PHOTO_SLOTS_CONFIG.map(slot => {
-    const saved = localStorage.getItem('photo_' + slot.key) || localStorage.getItem(slot.key);
-    const isGallery = slot.key.startsWith('gallery_');
-    const imgSrc = saved || (isGallery ? STOCK_PHOTOS[parseInt(slot.key.split('_')[1])] : '');
-    return `
-      <div class="photo-slot" id="slot_${slot.key}">
-        ${imgSrc ? `<img src="${imgSrc}" alt="${slot.label}"/>` : ''}
-        <div class="photo-slot-overlay">
-          <span class="photo-slot-label">${slot.label}</span>
-          <span class="photo-slot-btn">Загрузить</span>
-        </div>
-        <input type="file" accept="image/*" onchange="adminUploadPhoto('${slot.key}', this)"/>
-        ${saved ? `<button class="photo-slot-del" onclick="adminDeletePhoto('${slot.key}',event)">✕</button>` : ''}
-      </div>
-    `;
+function renderPhotoManager(){
+  document.getElementById('photoManager').innerHTML=SLOT_CONFIG.map(slot=>{
+    const isG=slot.key.startsWith('gallery_');
+    const saved=localStorage.getItem(isG?slot.key:'photo_'+slot.key);
+    const src=saved||(isG?STOCK[parseInt(slot.key.split('_')[1])]:'');
+    return `<div class="photo-slot">
+      ${src?`<img src="${src}" alt="${slot.label}"/>`:''}
+      <div class="photo-slot-overlay"><span class="photo-slot-label">${slot.label}</span><span class="photo-slot-btn">Загрузить</span></div>
+      <input type="file" accept="image/*" onchange="adminUploadPhoto('${slot.key}',this)"/>
+      ${saved?`<button class="photo-slot-del" onclick="adminDeletePhoto('${slot.key}',event)">✕</button>`:''}
+    </div>`;
   }).join('');
 }
 
-function adminUploadPhoto(key, input) {
-  const file = input.files[0];
-  if(!file) return;
-  const reader = new FileReader();
-  reader.onload = e => {
-    const data = e.target.result;
-    if(key.startsWith('gallery_')) {
-      localStorage.setItem(key, data);
-    } else {
-      localStorage.setItem('photo_' + key, data);
-      applyPhotoSlot(key, data);
-    }
-    renderPhotoManager();
-    renderGallery();
-  };
-  reader.readAsDataURL(file);
+function adminUploadPhoto(key,input){
+  const f=input.files[0];if(!f)return;
+  const r=new FileReader();
+  r.onload=e=>{
+    const isG=key.startsWith('gallery_');
+    localStorage.setItem(isG?key:'photo_'+key,e.target.result);
+    if(!isG)applyPhotoSlot(key,e.target.result);
+    renderPhotoManager();renderGallery();
+  };r.readAsDataURL(f);
 }
 
-function adminDeletePhoto(key, e) {
+function adminDeletePhoto(key,e){
   e.stopPropagation();
-  if(key.startsWith('gallery_')) {
-    localStorage.removeItem(key);
-  } else {
-    localStorage.removeItem('photo_' + key);
-    const img = document.getElementById(key + 'Img');
-    const ph = document.getElementById(key + 'Placeholder');
-    if(img) { img.src = ''; img.style.display = 'none'; }
-    if(ph) ph.style.display = '';
+  const isG=key.startsWith('gallery_');
+  localStorage.removeItem(isG?key:'photo_'+key);
+  if(!isG){
+    const img=document.getElementById(key+'Img'),ph=document.getElementById(key+'Placeholder');
+    if(img){img.src='';img.style.display='none';}if(ph)ph.style.display='';
   }
-  renderPhotoManager();
-  renderGallery();
+  renderPhotoManager();renderGallery();
 }
 
-// ─── INIT ───
-loadSavedPhotos();
-renderReviews();
-renderGallery();
+loadSavedPhotos();renderReviews();renderGallery();
 </script>
 </body>
 </html>
